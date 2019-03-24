@@ -1,6 +1,7 @@
 ---
 layout: default
-title:  Whack-a-mole
+title:  Education Fact Book
+
 nav_order: 21
 ---
 # Documentation for Whack-a-mole
