@@ -4,9 +4,9 @@ title:  Education Fact Book
 
 nav_order: 21
 ---
-# Documentation for Whack-a-mole
+# Documentation for Education Fact Book
 {: .no_toc  }
-* This documentation is written for `Whack-a-mole` game, try this simple experiment [Here](http://www.kathrynschuler.com/experiment-library/WAM-JS/original-whack-a-mole.html)
+* This documentation is written for `Education Fact Book` game, try this simple experiment [Here](http://www.kathrynschuler.com/experiment-library/WAM-JS/original-whack-a-mole.html)
 * Source code for this documentation is hosted in [GitHub](https://github.com/kschuler/experiment-library/tree/master/WAM-JS)
 * Visit this [Documentation](http://www.kathrynschuler.com/experiment-library/demo-experiment-simple-RA/readme.html)
 
@@ -17,11 +17,11 @@ nav_order: 21
 
 
 
-*  ## Goal for this Simple Experiments
+*  ## Goal for this Education Fact Book
 {:toc}
 
 
-*  ## The Structure of  the Simple Experiment
+*  ## The Structure of  the Education Fact Book
 {:toc}
 
 This simple experiment is from [jsPsych Tutorial](https://www.jspsych.org/tutorials/rt-task/). The task is to press one key for a blue colored circle and another key for an orange colored circle. The **structure** of this `simple expemiment`:
