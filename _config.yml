@@ -1,0 +1,12 @@
+remote_theme: pmarsceill/just-the-docs
+
+# set title?
+title: "Experiment Library"
+
+# enable search
+search_enabled: false
+
+# aux links for upper right navigation
+aux_links:
+  "Visit our public website":
+    - "//kschuler.github.io/childlanglab"
