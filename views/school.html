@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="angularjsNodejsTutorial" >
 <head>
   <meta charset="utf-8">
   <title>Regna Bootstrap Template</title>
@@ -21,6 +21,9 @@
   <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="/lib/animate/animate.min.css" rel="stylesheet">
 
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+  <script src="javascripts/app.js" type="text/javascript"></script>
+
   <!-- Main Stylesheet File -->
   <link href="/stylesheets/style.css" rel="stylesheet">
 
@@ -41,18 +44,18 @@
     <div class="container">
 
       <div id="logo" class="pull-left">
-        <a href="#hero"><img src="/img/logo.png" alt="" title="" /></img></a>
+        <a href="#hero"><p>Education Fact Book</p></a>
         <!-- Uncomment below if you prefer to use a text logo -->
         <!--<h1><a href="#hero">Regna</a></h1>-->
       </div>
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li><a href="#hero">Home</a></li>
+          <li><a href="/">Home</a></li>
           <li><a href="/rank">College Rank</a></li>
           <li><a href="/game">Start A Family</a></li>
-          <li class="menu-active"><a href="/income">Education vs Income</a></li>
-          <li><a href="/school">Find Great School</a></li>
+          <li><a href="/income">Education vs Income</a></li>
+          <li class="menu-active"><a href="/school">Find Great School</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
@@ -61,14 +64,54 @@
   <!--==========================
     Hero Section
   ============================-->
-<!--   <section id="hero">
-    <div class="hero-container">
-      <h1>Welcome to Education Fact Book</h1>
-      <a href="#about" class="btn-get-started">Get Started</a>
-    </div>
+  <section id="hero">
+      <div class="container user-container" ng-controller="stateController">
+              <hr class="empty">
+              <hr class="empty">
+              <hr class="empty">
+              <hr class="empty">
+              <hr class="empty">
+              <hr class="empty">
+              <hr class="empty">
+              <hr class="empty">
+              <hr class="empty">
+              <hr class="empty">
+              <hr class="empty">
+              <div class="jumbotron">
+              <div class="h3 headline">Great School With Affordable House</div>
+              <div class="form-group">
+                <label for="">State</label>
+                <select class = "custom-select" ng-model="selectedState" ng-options="x for x in states"></select>
+                <button type = "button" class="btn btn-outline-secondary" name = "Submit" ng-click = "selectState()">Submit</button>
+              </div>
+              <div class="input-group mb-3">
+
+                  <hr>
+                  <table class = "table">
+                      <tr>
+                          <th>score</th>
+                          <th>zipcode</th>
+                          <th>median_price</th>
+                          <th>city</th>
+                          <th>state</th>
+                      </tr>
+                      <tr ng-repeat="x in affordable">
+                          <td>{{x.score}}</td>
+                          <td>{{x.zipcode}}</td>
+                          <td>{{x.median_price}}</td>
+                          <td>{{x.city}}</td>
+                          <td>{{x.state}}</td>
+                      </tr>
+                  </table>
+
+              </div>
+          </div>
+
+         <!-- <a href="/dashboard" class="fixedbutton"> <botton class= 'btn btn-primary' id = 'Dashboard'>Dashboard </a> -->
+       </div>
   </section><!-- #hero -->
 
-  <main id="main"> -->
+  <main id="main">
 
   <!--==========================
     Footer
@@ -82,10 +125,10 @@
 
     <div class="container">
       <div class="copyright">
-        &copy; Copyright <strong>Regna</strong>. All Rights Reserved
+        <strong>Education Fact Book</strong>
       </div>
       <div class="credits">
-        Bootstrap Templates  BootstrapMade. More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+         <a href="http://www.cssmoban.com/" target="_blank" title=""></a>CIS 550<a href="http://www.cssmoban.com/" title="Bo" target="_blank"> Bo Lyu</a>
       </div>
     </div>
   </footer><!-- #footer -->
