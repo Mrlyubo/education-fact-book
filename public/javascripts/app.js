@@ -16,7 +16,6 @@ app.controller('dummyController', function($scope, $http) {
 
   };
 });
-
 */
 //Find great school
 app.controller('stateController', function($scope, $http) {
@@ -108,7 +107,6 @@ app.controller('stateController', function($scope, $http) {
       $scope.affordable = {};
       $scope.refresh = function() {
           // console.log(" refresh called 2!");
-          $scope.data = generateData(1,20);
           $scope.data = generateData(1,20);
           //$scope.data = $scope.affordable;
        };
