@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="angularjsNodejsTutorial">
 <head>
   <meta charset="utf-8">
-  <title>Regna Bootstrap Template</title>
+  <title>Global College Rank</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -23,6 +23,10 @@
 
   <!-- Main Stylesheet File -->
   <link href="/stylesheets/style.css" rel="stylesheet">
+  <link href="/stylesheets/self-defined.css" rel="stylesheet">
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+  <script src="javascripts/app.js" type="text/javascript"></script>
 
   <!-- =======================================================
     Theme Name: Regna
@@ -41,18 +45,18 @@
     <div class="container">
 
       <div id="logo" class="pull-left">
-        <a href="#hero"><img src="/img/logo.png" alt="" title="" /></img></a>
+        <h1 style="color: white">Edu Fact Book</h1>
         <!-- Uncomment below if you prefer to use a text logo -->
         <!--<h1><a href="#hero">Regna</a></h1>-->
       </div>
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li><a href="#hero">Home</a></li>
+          <li><a href="/">Home</a></li>
           <li class="menu-active"><a href="/rank">College Rank</a></li>
           <li><a href="/game">Start A Family</a></li>
           <li><a href="/income">Education vs Income</a></li>
-          <li><a href="/bo">Bo's HW</a></li>
+          <li><a href="/school">Find Great School</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
@@ -61,15 +65,94 @@
   <!--==========================
     Hero Section
   ============================-->
-  <section id="hero">
-    <div class="hero-container">
-      <h1>Welcome to Education Fact Book</h1>
-      <a href="#about" class="btn-get-started">Get Started</a>
+  <section id="general">
+
+    <div class="schedule_div" align="center" ng-controller="top100avgController">
+      <div class="filter">
+      <div><a href="#general">Top 100 General</a></div>
+      <div><a href="#growth">Top 100 Potential</a></div>
+      <div><input type="text" name="college_name" placeholder="Search colleges" class="search" ng-model="college_name"><i class="fa fa-search" style="width: 25px" ng-click="search()"></i>
+      </div>
+    </div>
+      <h2>Top 100 Universities in All Ranking</h2>
+      <div class="table_div">
+      <table class="schedule">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Institution</th>
+            <th>Location</th>
+            <th>QS</th>
+            <th>THE</th>
+            <th>ARWU</th>
+            <th>USNEWS</th>
+            <th>Average</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="m in top100avg">
+            <td ng-if="m.id%2!=0" class="alt0">{{m.id}}</td>
+            <td ng-if="m.id%2!=0" class="alt0">{{m.Institution}}</td>
+            <td ng-if="m.id%2!=0" class="alt0">{{m.Location}}</td>
+            <td ng-if="m.id%2!=0" class="alt0">{{m.QS_Rank}}</td>
+            <td ng-if="m.id%2!=0" class="alt0">{{m.THE_Rank}}</td>
+            <td ng-if="m.id%2!=0" class="alt0">{{m.ARWU_Rank}}</td>
+            <td ng-if="m.id%2!=0" class="alt0">{{m.USNEWS_Rank}}</td>
+            <td ng-if="m.id%2!=0" class="alt0">{{m.Average}}</td>
+
+            <td ng-if="m.id%2==0" class="alt">{{m.id}}</td>
+            <td ng-if="m.id%2==0" class="alt">{{m.Institution}}</td>
+            <td ng-if="m.id%2==0" class="alt">{{m.Location}}</td>
+            <td ng-if="m.id%2==0" class="alt">{{m.QS_Rank}}</td>
+            <td ng-if="m.id%2==0" class="alt">{{m.THE_Rank}}</td>
+            <td ng-if="m.id%2==0" class="alt">{{m.ARWU_Rank}}</td>
+            <td ng-if="m.id%2==0" class="alt">{{m.USNEWS_Rank}}</td>
+            <td ng-if="m.id%2==0" class="alt">{{m.Average}}</td>
+
+          </tr>       
+        </tbody>
+      </table>
+    </div>
     </div>
   </section><!-- #hero -->
 
-  <main id="main">
+  <section id="growth">
+    <div class="schedule_div" align="center" ng-controller="top100growController">
+      <h2>Top 100 Universities with Best Potential</h2>
+      <div class="table_div">
+      <table class="schedule">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Institution</th>
+            <th>Location</th>
+            <th>Rank_2015</th>
+            <th>Rank_2019</th>
+            <th>Growth</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="m in top100grow">
+            <td ng-if="m.id%2!=0" class="alt0">{{m.id}}</td>
+            <td ng-if="m.id%2!=0" class="alt0">{{m.Institution}}</td>
+            <td ng-if="m.id%2!=0" class="alt0">{{m.Location}}</td>
+            <td ng-if="m.id%2!=0" class="alt0">{{m.Rank_2015}}</td>
+            <td ng-if="m.id%2!=0" class="alt0">{{m.Rank_2019}}</td>
+            <td ng-if="m.id%2!=0" class="alt0">{{m.growth}}</td>
 
+            <td ng-if="m.id%2==0" class="alt">{{m.id}}</td>
+            <td ng-if="m.id%2==0" class="alt">{{m.Institution}}</td>
+            <td ng-if="m.id%2==0" class="alt">{{m.Location}}</td>
+            <td ng-if="m.id%2==0" class="alt">{{m.Rank_2015}}</td>
+            <td ng-if="m.id%2==0" class="alt">{{m.Rank_2019}}</td>
+            <td ng-if="m.id%2==0" class="alt">{{m.growth}}</td>
+
+          </tr>       
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </section>
   <!--==========================
     Footer
   ============================-->
@@ -103,7 +186,7 @@
   <script src="/lib/counterup/counterup.min.js"></script>
   <script src="/lib/superfish/hoverIntent.js"></script>
   <script src="/lib/superfish/superfish.min.js"></script>
-  
+
   <!-- Template Main Javascript File -->
   <script src="/js/main.js"></script>
 
