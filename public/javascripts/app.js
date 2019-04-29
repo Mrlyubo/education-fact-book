@@ -121,3 +121,40 @@ app.controller('stateController', function($scope, $http) {
       };
 
 });
+
+app.controller('simsController', function($scope, $http) {
+  // $scope.races = ['White', 'Black or African American', 'Asian', 'Hispanic or Latino'];
+  console.log("simsController called!");
+  var request1 = $http.get('/getallraces');
+    request1.success(function(data1) {
+        console.log(data1);
+        $scope.races = data1;
+    });
+    request1.error(function(data1) {
+        console.log('err occured in sims');
+    });
+  var request2 = $http.get('/getallgenders');
+    request2.success(function(data2) {
+        $scope.genders = data2;
+    });
+    request2.error(function(data2) {
+        console.log('err occured in sims');
+    });
+  var request3 = $http.get('/getallstates');
+    request3.success(function(data3) {
+        $scope.states = data3;
+    });
+    request3.error(function(data3) {
+        console.log('err occured in sims');
+    });
+  // $scope.getRaces = function() {
+  //     var req = $http.get('/getallraces');
+  //     req.success(function(data) {
+  //         $scope.races = data;
+  //     });
+  //     req.error(function(data) {
+  //         console.log('err occured in sims');
+  //     });
+  // };
+
+});
