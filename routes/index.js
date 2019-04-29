@@ -41,6 +41,45 @@ router.get('/bo', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'Lv_bo_homework.html'));
 });
 
+router.get('/college', function(req, res) {
+  var cid=req.query.cid;
+  var q1="select Institution,Location from college_information where Institution_id="+cid+";";
+  var result={};
+  //var svg = d3.select("svg");
+
+  connection.query(q1, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      result["cname"]=rows[0].Institution;
+      result["location"]=rows[0].Location;
+
+      var q2="(select Rank from the_general_2015 where Institution_id='"+cid
+      +"') union all " + "(select Rank from the_general_2016 where Institution_id='"+cid
+      +"') union all "  + "(select Rank from the_general_2017 where Institution_id='"+cid
+      +"') union all " + "(select Rank from the_general_2018 where Institution_id='"+cid
+      +"') union all " + "(select Rank from the_general_2019 where Institution_id='"+cid +"');";
+      connection.query(q2, function(err, rows, fields) {
+
+        if (err) console.log(err);
+        else {
+          console.log(rows);
+          result["the_2015"]=rows[0].Rank;
+          result["the_2016"]=rows[1].Rank;
+          result["the_2017"]=rows[2].Rank;
+          result["the_2018"]=rows[3].Rank;
+          result["the_2019"]=rows[4].Rank;
+
+          res.render('college',result);
+        }
+      });
+
+
+    }
+  });
+
+  
+});
+
 
 // To add a new page, use the templete below
 /*
@@ -71,6 +110,34 @@ router.post('/login', function(req, res) {
   });
 });
 
+router.post('/search', function(req, res) {
+  // use console.log() as print() in case you want to debug, example below:
+  // console.log(req.body); will show the print result in your terminal
+
+  // req.body contains the json data sent from the loginController
+  // e.g. to get username, use req.body.username
+  //console.log(req.body)
+  var query="select Institution_id from college_information where Institution='"+req.body.name+"';"
+  connection.query(query, function(err, rows, fields) {
+    console.log(rows);
+    if (err) console.log('error: ', err);
+    else {
+      if(rows.length==0){
+        res.json({
+          result: 'fail'
+        });
+      }else{
+        res.json({
+          "result": 'success',
+          "cid": rows[0].Institution_id
+        });
+      }
+      
+    }
+  });
+  
+});
+
 router.post('/getMovieByGenre', function(req, res) {
   // use console.log() as print() in case you want to debug, example below:
   // console.log(req.body); will show the print result in your terminal
@@ -92,6 +159,40 @@ router.post('/getMovieByGenre', function(req, res) {
   });
 });
 
+router.get('/top100_avg', function(req, res) {
+  console.log("top100 avg");
+  var query = "select the.Institution,Location,QS_Rank,THE_Rank, ARWU_Rank, "
+  +"USNEWS_Rank, (QS_Rank+THE_Rank+ARWU_Rank+USNEWS_Rank)/4 as Average FROM "
+  +"(((select Institution,Location,Rank as THE_Rank from the_general_2019) as the "
+  +"NATURAL JOIN (select Institution,Rank as QS_Rank from qs_general_2019) as qs) "
+  +"NATURAL JOIN (select Institution,Rank as ARWU_Rank from arwu_general_2018) as arwu) "
+  +"NATURAL JOIN (select Institution,Rank as USNEWS_Rank from usnews_general_2019) as usnews "
+  +"ORDER BY Average ASC Limit 100"; 
+    connection.query(query, function(err, rows, fields) {
+    if (err) console.log('error: ', err);
+    else {
+      //console.log(rows);
+      res.json(rows);
+    }
+  });
+});
+
+router.get('/top100_grow', function(req, res) {
+  console.log("top100 grow");
+  var query = "select Institution, Location, Rank_2015, Rank_2019, growth from "
+  +"(select Institution_id, Location, Rank_2015, Rank_2019, Rank_2015-Rank_2019 as growth from"
+  +"(select Institution_id, Location, Rank as Rank_2015 from the_general_2015) as temp2015 "
+  +"NATURAL JOIN (select Institution_id, Rank as Rank_2019 from the_general_2019) as temp2019 "
+  +"order by growth desc limit 100) temp0 "
+  +"NATURAL JOIN (select Institution_id,Institution from college_information) temp1;";
+    connection.query(query, function(err, rows, fields) {
+    if (err) console.log('error: ', err);
+    else {
+      //console.log(rows);
+      res.json(rows);
+    }
+  });
+});
 
 
 
