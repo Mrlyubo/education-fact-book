@@ -210,38 +210,6 @@ router.get('/school/:selectedState', function(req, res) {
     });
 });
 
-router.get('/getallraces', function(req, res) {
-  console.log("getting all races");
-  var query = "SELECT DISTINCT Race FROM cis550project1.People;";
-  connection.query(query, function(err, rows, fields) {
-      if (err) console.log(err);
-      else {
-        res.json(rows);
-      }
-  });
-});
-
-router.get('/getallgenders', function(req, res) {
-  console.log("getting all genders");
-  var query = "SELECT DISTINCT Gender FROM cis550project1.People;";
-  connection.query(query, function(err, rows, fields) {
-      if (err) console.log(err);
-      else {
-        res.json(rows);
-      }
-  });
-});
-
-router.get('/getallstates', function(req, res) {
-  console.log("getting all genders");
-  var query = "SELECT StateName FROM (SELECT DISTINCT StateID FROM cis550project1.People) AS A JOIN cis550project1.State ON A.StateID = cis550project1.State.StateID;";
-  connection.query(query, function(err, rows, fields) {
-      if (err) console.log(err);
-      else {
-        res.json(rows);
-      }
-  });
-});
 
 
 // template for GET requests
