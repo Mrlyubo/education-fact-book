@@ -56,12 +56,12 @@ app.controller('dashboardController', function($scope, $http) {
   request2.error(function(data){
     console.log('err');
   });
-  
+
   $scope.getThisGenre = function(param) {
     // To check in the console if the variables are correctly storing the input:
     // console.log($scope.username, $scope.password);
     console.log(param);
-    
+
     var request = $http({
       url: '/getMovieByGenre',
       method: "POST",
@@ -80,7 +80,7 @@ app.controller('dashboardController', function($scope, $http) {
       // failed
       console.log("error: ", err);
     });
-    
+
   };
 });
 
@@ -263,3 +263,26 @@ app.controller('dummyController', function($scope, $http) {
   };
 });
 */
+//Q4
+app.controller('stateController', function($scope, $http) {
+
+      $scope.states = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+                       'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+                       'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+                       'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+                       'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY',
+                       'DC', 'GU', 'PR'];
+      console.log("stateController called!");
+      $scope.selectState = function() {
+          var selectedState = $scope.selectedState;
+          console.log("selectedState = " + selectedState);
+          var req = $http.get('/school/'+selectedState);
+          req.success(function(data) {
+              $scope.affordable = data;
+          });
+          req.error(function(data) {
+              console.log('err');
+          });
+      };
+
+});
