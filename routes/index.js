@@ -99,9 +99,10 @@ router.get('/school/:selectedState', function(req, res) {
     console.log("selectedState = " + selectedState);
     var query = "SELECT S.leaid, AVG(S.mn_all) AS score, D.zipcode, H.median_price, Z.city, Z.state"+
                 " FROM school_rating S, district_city D, house_price H, zip_city Z"+
-                " WHERE Z.state = 'TX'  AND D.leaid = S.leaid AND H.zipcode = D.zipcode AND H.zipcode = Z.zipcode"+
+                " WHERE Z.state = ?  AND D.leaid = S.leaid AND H.zipcode = D.zipcode AND H.zipcode = Z.zipcode"+
                 " GROUP BY D.leaid;";
-    connection.query(query, function(err, rows, fields) {
+    var options = [selectedState];
+    connection.query(query, options, function(err, rows, fields) {
         if (err) console.log(err);
         else {
           res.json(rows);
