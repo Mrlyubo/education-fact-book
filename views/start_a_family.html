@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="angularjsNodejsTutorial">
 <head>
   <meta charset="utf-8">
   <title>Regna Bootstrap Template</title>
@@ -20,6 +20,9 @@
   <!-- Libraries CSS Files -->
   <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="/lib/animate/animate.min.css" rel="stylesheet">
+  
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+  <script src="javascripts/app.js" type="text/javascript"></script>
 
   <!-- Main Stylesheet File -->
   <link href="/stylesheets/style.css" rel="stylesheet">
@@ -52,7 +55,7 @@
           <li><a href="/rank">College Rank</a></li>
           <li class="menu-active"><a href="/game">Start A Family</a></li>
           <li><a href="/income">Education vs Income</a></li>
-          <li><a href="/bo">Bo's HW</a></li>
+          <li><a href="/school">Find Great School</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
@@ -62,10 +65,37 @@
     Hero Section
   ============================-->
   <section id="hero">
-    <div class="hero-container">
-      <h1>Welcome to Education Fact Book</h1>
-      <a href="#about" class="btn-get-started">Get Started</a>
-    </div>
+      <div class="container sims-container" ng-controller="simsController">
+              <hr class="empty">
+              <hr class="empty">
+              <hr class="empty">
+              <hr class="empty">
+              <hr class="empty">
+              <hr class="empty">
+              <div class="jumbotron">
+              <div class="h3 headline">Let's play a game :)</div>
+              <div class="form-group">
+                <label for="">Choose your race: </label>
+                <select class = "custom-select" ng-model="selectedRace" ng-options="x.Race for x in races"></select>
+              </div>
+              <div class="form-group">
+                  <label for="">Choose your gender: </label>
+                  <select class = "custom-select" ng-model="selectedGender" ng-options="y.Gender for y in genders"></select>
+              </div>
+              <div class="form-group">
+                  <label for="">Choose your state of born: </label>
+                  <select class = "custom-select" ng-model="selectedState" ng-options="z.StateName for z in states"></select>
+              </div>
+          </div>
+
+         <!-- <a href="/dashboard" class="fixedbutton"> <botton class= 'btn btn-primary' id = 'Dashboard'>Dashboard </a> -->
+       </div>
+  </section><!-- #hero -->
+  <section id="hero2">
+      <div class="container shows-container" ng-controller="simsController">
+              <div class="jumbotron">
+         <!-- <a href="/dashboard" class="fixedbutton"> <botton class= 'btn btn-primary' id = 'Dashboard'>Dashboard </a> -->
+       </div>
   </section><!-- #hero -->
 
   <main id="main">
@@ -103,7 +133,7 @@
   <script src="/lib/counterup/counterup.min.js"></script>
   <script src="/lib/superfish/hoverIntent.js"></script>
   <script src="/lib/superfish/superfish.min.js"></script>
-  
+
   <!-- Template Main Javascript File -->
   <script src="/js/main.js"></script>
 

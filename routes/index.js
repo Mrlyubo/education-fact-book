@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
   host: 'cis550db1.cjrslxs9vdnj.us-east-2.rds.amazonaws.com',
   user: 'cis550project1',
   password: 'cis550sharekey',
-  database: 'cis550project1'
+  database: 'zipcode'
 });
 
 connection.connect(function(err) {
@@ -37,8 +37,47 @@ router.get('/income', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'income.html'));
 });
 
-router.get('/bo', function(req, res) {
-  res.sendFile(path.join(__dirname, '../', 'views', 'Lv_bo_homework.html'));
+router.get('/school', function(req, res) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'school.html'));
+});
+
+router.get('/college', function(req, res) {
+  var cid=req.query.cid;
+  var q1="select Institution,Location from college_information where Institution_id="+cid+";";
+  var result={};
+  //var svg = d3.select("svg");
+
+  connection.query(q1, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      result["cname"]=rows[0].Institution;
+      result["location"]=rows[0].Location;
+
+      var q2="(select Rank from the_general_2015 where Institution_id='"+cid
+      +"') union all " + "(select Rank from the_general_2016 where Institution_id='"+cid
+      +"') union all "  + "(select Rank from the_general_2017 where Institution_id='"+cid
+      +"') union all " + "(select Rank from the_general_2018 where Institution_id='"+cid
+      +"') union all " + "(select Rank from the_general_2019 where Institution_id='"+cid +"');";
+      connection.query(q2, function(err, rows, fields) {
+
+        if (err) console.log(err);
+        else {
+          console.log(rows);
+          result["the_2015"]=rows[0].Rank;
+          result["the_2016"]=rows[1].Rank;
+          result["the_2017"]=rows[2].Rank;
+          result["the_2018"]=rows[3].Rank;
+          result["the_2019"]=rows[4].Rank;
+
+          res.render('college',result);
+        }
+      });
+
+
+    }
+  });
+
+  
 });
 
 router.get('/college', function(req, res) {
@@ -194,8 +233,55 @@ router.get('/top100_grow', function(req, res) {
   });
 });
 
+router.get('/school/:selectedState', function(req, res) {
+    console.log("best_of BackEnd called!");
+    var selectedState = req.params.selectedState;
+    console.log("selectedState = " + selectedState);
+    var query = "SELECT S.leaid, AVG(S.mn_all) AS score, D.zipcode, H.median_price, Z.city, Z.state"+
+                " FROM school_rating S, district_city D, house_price H, zip_city Z"+
+                " WHERE Z.state = ?  AND D.leaid = S.leaid AND H.zipcode = D.zipcode AND H.zipcode = Z.zipcode"+
+                " GROUP BY D.leaid;";
+    var options = [selectedState];
+    connection.query(query, options, function(err, rows, fields) {
+        if (err) console.log(err);
+        else {
+          res.json(rows);
+        }
+    });
+});
 
+router.get('/getallraces', function(req, res) {
+  console.log("getting all races");
+  var query = "SELECT DISTINCT Race FROM cis550project1.People;";
+  connection.query(query, function(err, rows, fields) {
+      if (err) console.log(err);
+      else {
+        res.json(rows);
+      }
+  });
+});
 
+router.get('/getallgenders', function(req, res) {
+  console.log("getting all genders");
+  var query = "SELECT DISTINCT Gender FROM cis550project1.People;";
+  connection.query(query, function(err, rows, fields) {
+      if (err) console.log(err);
+      else {
+        res.json(rows);
+      }
+  });
+});
+
+router.get('/getallstates', function(req, res) {
+  console.log("getting all genders");
+  var query = "SELECT StateName FROM (SELECT DISTINCT StateID FROM cis550project1.People) AS A JOIN cis550project1.State ON A.StateID = cis550project1.State.StateID;";
+  connection.query(query, function(err, rows, fields) {
+      if (err) console.log(err);
+      else {
+        res.json(rows);
+      }
+  });
+});
 
 
 // template for GET requests
