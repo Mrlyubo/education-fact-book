@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="angularjsNodejsTutorial" >
+<html lang="en" ng-app="plunker" >
 <head>
   <meta charset="utf-8">
   <title>Education</title>
@@ -24,6 +24,7 @@
   <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
 
   <script src="javascripts/app.js" type="text/javascript"></script>
+   <script src="javascripts/schoolCtrl.js" type="text/javascript"></script>
 
   <!-- Main Stylesheet File -->
   <link href="/stylesheets/style.css" rel="stylesheet">
@@ -31,10 +32,12 @@
    <!-- d3.js scatter plot dependency-->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.min.css"/>
   <script>document.write('<base href="' + document.location + '" />');</script>
+
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.7/angular-nvd3.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.7/angular-nvd3.min.js"></script> -->
+  <script src="https://rawgit.com/krispo/angular-nvd3/v1.0.4/dist/angular-nvd3.js"></script>
   <!-- <script src="javascripts/plunker.js"></script> -->
 
 
@@ -73,74 +76,78 @@
   <section id="hero">
 
 
-      <div class="container user-container" ng-controller="stateController">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <div class="jumbotron">
-              <div class="h3 headline">Great School With Affordable House</div>
-              <div class="form-group">
-                <label for="">State</label>
-                <select class = "custom-select" ng-model="selectedState" ng-options="x for x in states"></select>
-                <button type = "button" class="btn btn-outline-secondary" name = "Submit" ng-click = "selectState()">Submit</button>
+      <!-- <div class="container " > -->
+      <hr class="empty"><hr class="empty"><hr class="empty"><hr class="empty"><hr class="empty"> <hr class="empty">
+      <hr class="empty"><hr class="empty"><hr class="empty"><hr class="empty"><hr class="empty">
+          <div class="jumbotron">
+          <div ng-controller = "stateController">
+              <!-- SECTION ONE -->
+              <div class="row">
+                  <div class="col-sm-6" style="">
+                      <div class="container">
+
+                           <center><h3>Click The Cities To Compare<h3></center>
+                               <div class="form-group">
+                                <label for="">State</label>
+                                <select class = "custom-select" ng-model="selectedState" ng-options="x for x in states"></select>
+                                <button type = "button" class="btn btn-outline-secondary" name = "Submit" ng-click = "selectState()">Submit</button>
+                               </div>
+                           <div><nvd3 options="options" data="data" api="api" class="with-3d-shadow with-transitions"></nvd3> </div>
+                       </div>
+                  </div>
+                  <div class="col-sm-6" style="">
+                      <div class="h3 headline">Great School With Affordable House</div>
+                      <div class="form-group">
+                       <label for="">State</label>
+                       <select class = "custom-select" ng-model="selectedState" ng-options="x for x in states"></select>
+                       <button type = "button" class="btn btn-outline-secondary" name = "Submit" ng-click = "selectState()">Submit</button>
+                      </div>
+                      <div class="input-group mb-3">
+                           <hr>
+                            <table class = "table">
+                               <tr>
+                                   <th>School Rating Score</th>
+                                   <th>Zipcode</th>
+                                   <th>Median House Price</th>
+                                   <th>City</th>
+                                   <th>Population</th>
+                                   <th>Ratio</th>
+                               </tr>
+                               <tr ng-repeat="x in affordable">
+                                   <td>{{x.score}}</td>
+                                   <td>{{x.zipcode}}</td>
+                                   <td>{{x.median_price}}</td>
+                                   <td>{{x.city}}</td>
+                                   <td>{{x.population}}</td>
+                                   <td>{{x.ratio}}</td>
+                               </tr>
+                             </table>
+                       </div>
+                  </div>
               </div>
-              <div class="input-group mb-3">
-
-                  <hr>
-                  <table class = "table">
-                      <tr>
-                          <th>score</th>
-                          <th>zipcode</th>
-                          <th>median_price</th>
-                          <th>city</th>
-                          <th>state</th>
-                      </tr>
-                      <tr ng-repeat="x in affordable">
-                          <td>{{x.score}}</td>
-                          <td>{{x.zipcode}}</td>
-                          <td>{{x.median_price}}</td>
-                          <td>{{x.city}}</td>
-                          <td>{{x.state}}</td>
-                      </tr>
-                  </table>
 
               </div>
-          </div>
+              <!-- <div class = "jumbotron" ng-app="plunker" ng-controller = "MainCtrl">
 
-       </div>
-
-
-       <!-- Updatable Diagram -->
-       <div class="container jumbotron " ng-controller = 'stateController'>
-            <button class = "btn btn-large" ng-click="refresh()">Refresh</button>
-            <div> <nvd3 options="options" data="data"></nvd3> </div>
-       </div>
+             <p>This plunkr is intended to demonstrate the ability of Angular-nvD3 to handle large data
+             sets. This call a script at regular intervals that populates a data object
+             with 5k points each call.  The data object is emptied at each call and
+             repopulated.  Below we have the time it takes to actual make the <i>chart.update()</i> call.</p>
+             <p>This example requires a lot of resources, but the likelihood is that these
+             resources are required for the <i>Math.random()</i> call.</p>
 
 
+             <b>Time to execute:</b> <span id = "timeExe"></span>
+             <div id='chart' class=' chart half with-3d-shadow with-transitions' >
+                   deepWatchDataDepth: 2 (default) is the most expensive watching behaviour, so we can reduce the depth to 0;
+                  or we can set `deepWatchData: false`, it will turn off at all the watching behaviour;
+                  and then manually refresh chart in the js code: `$scope.api.update()`
+                 <nvd3 options="options" data="data" api="api" config="{deepWatchDataDepth: 0}"></nvd3>
+              <button id='start-stop-button'>Start/Stop Stream</button></div> -->
+            </div>
 
-       <!-- economy -->
-       <!-- <div class="jumbotron container">
-          <button id="update">Refresh Page</button>
-          <br>
-          <div id="economyChart">
-              <svg></svg>
-          </div>
-      </div> -->
 
-       <!-- 5group -->
-
-           <!-- <div class="container jumbotron" ng-controller = 'stateController' id = 'yourControllerElementID'>
-              <button ng-click="refresh()">Refresh</button>
-              <nvd3 options="options" data="data"></nvd3>
-           </div> -->
+</div>
 
 
 
@@ -170,119 +177,6 @@
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
 
-<!-- Economy -->
-   <!-- <script type='text/javascript'>
-
-      // Maintian an instance of the chart and
-      var chart;
-
-      // Maintain an Instance of the SVG selection with its data
-      var chartData;
-
-      nv.addGraph(function () {
-          chart = nv.models.lineChart().margin({
-              top: 5,
-              right: 10,
-              bottom: 38,
-              left: 10
-          }).color(["lightgrey", "rgba(242,94,34,0.58)"])
-              .useInteractiveGuideline(false)
-              //.transitionDuration(350)
-              .showLegend(true).showYAxis(false)
-              .showXAxis(true).forceY([0.4, 1.6]);
-
-          chart.xAxis.tickFormat(d3.format('d')).axisLabel("Rounds");
-          chart.yAxis.tickFormat(d3.format('0.1f'));
-
-          var data = economyData();
-
-          // Assign the SVG selction
-          chartData = d3.select('#economyChart svg').datum(data);
-          chartData.transition().duration(500).call(chart);
-
-          nv.utils.windowResize(chart.update);
-
-          return chart;
-      });
-
-      function update() {
-
-          //var data = economyData();
-          //console.log('data length3 = ' + data.length);
-          setTimeout(function(){
-              newdata = angular.element(document.getElementById('yourControllerElementID')).scope().data;
-              console.log('new data length4 (should equal to 2.2)= ' + newdata.length);
-              // Update the SVG with the new data and call chart
-              chartData.datum(newdata).transition().duration(500).call(chart);
-              nv.utils.windowResize(chart.update);
-          }, 1000);
-
-
-      };
-
-      // Update the CHART
-      d3.select("#update").on("click", update);
-
-
-
-      // Data Calc
-      function economyData() {
-
-          //console.log("updated data = "+$scope.affordable[0].state);
-          // Your economyData code
-          // ....
-          var numRounds = 10;
-
-          // Stability of economy
-          var stable = 0.2,
-              unstable = 0.6;
-          var stability = unstable;
-
-          // Type of economy
-          var boom = 0.02,
-              flat = 0,
-              poor = -0.02,
-              economyTrend = boom;
-
-          // Range
-          var start = 1,
-              max = start + stability,
-              min = start - stability;
-
-          // Arrays
-          var baseLine = [],
-              economy = [];
-
-          // Loop
-          for (var i = 0; i < numRounds + 1; i++) {
-
-              baseLine.push({
-                  x: i,
-                  y: 1
-              });
-
-              if (i == 0) {
-                  economyValue = 1;
-              } else {
-                  var curve = Math.min(Math.max(start + ((Math.random() - 0.5) * stability), min), max);
-                  economyValue = Math.round(((1 + (economyTrend * i)) * curve) * 100) / 100;
-              }
-
-              economy.push({
-                  x: i,
-                  y: economyValue
-              });
-          }
-
-          return [{
-              key: 'Base Line',
-              values: baseLine
-          }, {
-              key: 'Economy',
-              values: economy
-          }];
-      }
-   </script> -->
 
   <!-- JavaScript Libraries -->
   <script src="/lib/jquery/jquery.min.js"></script>

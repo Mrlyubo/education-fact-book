@@ -1,5 +1,4 @@
-//var app = angular.module('angularjsNodejsTutorial', []);
-var app = angular.module('angularjsNodejsTutorial', ['nvd3']);
+var app = angular.module('angularjsNodejsTutorial', []);
 
 
 app.controller('top100avgController', function($scope, $http) {
@@ -17,7 +16,7 @@ app.controller('top100avgController', function($scope, $http) {
       var rows=response;
 
       for(var i=0;i<rows.length;i++){
-        rows[i]['id']=i+1;       
+        rows[i]['id']=i+1;
       }
 
       console.log(rows);
@@ -28,7 +27,7 @@ app.controller('top100avgController', function($scope, $http) {
       // failed
       console.log("error: ", err);
     });
-    
+
     $scope.search = function() {
     // To check in the console if the variables are correctly storing the input:
     // console.log($scope.username, $scope.password);
@@ -40,7 +39,7 @@ app.controller('top100avgController', function($scope, $http) {
         'name': $scope.college_name,
       }
     })
-    
+
     search_request.success(function(response) {
       // success
       // console.log('response');
@@ -74,7 +73,7 @@ app.controller('top100growController', function($scope, $http) {
       var rows=response;
 
       for(var i=0;i<rows.length;i++){
-        rows[i]['id']=i+1;       
+        rows[i]['id']=i+1;
       }
 
       console.log(rows);
@@ -84,7 +83,7 @@ app.controller('top100growController', function($scope, $http) {
     request.error(function(err) {
       // failed
       console.log("error: ", err);
-    });    
+    });
 });
 
 /**
@@ -155,7 +154,7 @@ app.controller('rankplot', function($scope, $http) {
                 }
             }
         };
-     
+
 });
 **/
 
@@ -175,6 +174,16 @@ app.controller('dummyController', function($scope, $http) {
   };
 });
 */
+
+var ALjson = [
+    {leaid: 100007, score: 0.30538333, zipcode: 35243, median_price: 3.06200, city: "BIRMINGHAM"},
+    {leaid: 100008, score: 0.58085, zipcode: 35758, median_price: 2.98000, city: "MADISON"},
+    {leaid: 100011, score: -0.31563, zipcode: 35094, median_price: 1.75000, city: "LEEDS"},
+    {leaid: 100013, score: 0.25671667, zipcode: 35173, median_price: 2.68000, city: "TRUSSVILLE"},
+    {leaid: 100090, score: -0.61503333, zipcode: 36206, median_price: .92000, city: "ANNISTON"},
+    {leaid: 100120, score: -0.031825, zipcode: 35611, median_price: 1.27000, city: "ATHENS"},
+]
+
 //Find great school
 app.controller('stateController', function($scope, $http) {
 
@@ -185,43 +194,53 @@ app.controller('stateController', function($scope, $http) {
                        'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY',
                        'DC', 'GU', 'PR'];
 
-      function generateData(groups, points) {
-                        var data = [],
-                            shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
-                            random = d3.random.normal();
+      function generateData(groups, points) { //# groups,# points per group
+                           var data = [],
+                               shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
+                               random = d3.random.normal();
 
-                        for (var i = 0; i < groups; i++) {
-                            data.push({
-                                key: 'Group ' + i,
-                                values: []
-                            });
+                           for (var i = 0; i < groups; i++) {
+                               data.push({
+                                   key: 'Group ' + i,
+                                   values: []
+                               });
 
-                            for (var j = 0; j < points; j++) {
-                                data[i].values.push({
-                                    x: random(),
-                                    y: random(),
-                                    size: Math.random(),
-                                    shape: shapes[j % 6]
+                               for (var j = 0; j < points; j++) {
+                                   data[i].values.push({
+                                       x: random(),
+                                       y: random(),
+                                       size: Math.random(),
+                                       shape: shapes[j % 6]
+                                   });
+                               }
+                           }
+                           return data;
+                       };
+
+       function generateNewData( backenddata ) { //# groups,# points per group
+                            var data = [],
+                                shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
+                                random = d3.random.normal();
+
+                            for (var i = 0; i < backenddata.length; i++) {
+                                data.push({
+                                    key: backenddata[i].city,
+                                    values: []
                                 });
-                            }
-                        }
-                        return data;
-                    };
-      $scope.data = generateData(5,30);
-      // $scope.toggle = true;
-      function generateTrueData( backenddata ) {
-                         console.log("BackEnddata length 3 = " + backenddata.length);
-                         var data = [];
-                         data.push({values:[]});
-                         for (var j = 0; j < backenddata.length; j++) {
-                             data[0].values.push({
-                                      x: backenddata.score,
-                                      y: backenddata.median_price
-                            });
-                         }
-                          return data;
-                      };
 
+
+                                data[i].values.push({
+                                        x: backenddata[i].score,
+                                        y: backenddata[i].median_price,
+                                        size: Math.random(),
+                                        shape: shapes[i % 6]
+                                    });
+
+                            }
+                            return data;
+                        };
+
+      $scope.data = generateData(5,30);
       $scope.options = {
                                chart: {
                                    type: 'scatterChart',
@@ -262,25 +281,95 @@ app.controller('stateController', function($scope, $http) {
                                    }
                                }
                             };
-      $scope.affordable = {};
+
       $scope.refresh = function() {
-          // console.log(" refresh called 2!");
-          $scope.data = generateData(1,20);
-          //$scope.data = $scope.affordable;
-       };
+          //$scope.data = generateData(1,20);
+          $scope.data = generateNewData(ALjson);
+          $scope.api.update();
+      };
 
       $scope.selectState = function() {
-          var selectedState = $scope.selectedState;
-          console.log("selectedState = " + selectedState);
-          var req = $http.get('/school/'+ selectedState);
-          req.success(function(data) {
-              $scope.affordable = data;
-              console.log("refresh called 1!");
-              $scope.data = generateTrueData( $scope.affordable);
 
+          $scope.api.update();
+          var selectedState = $scope.selectedState;
+          $scope.checked = false;
+          var req = $http.get('/school/'+ selectedState);
+          req.success(function(response) {
+              $scope.checked = true;
+              $scope.affordable = response;
+              $scope.data= generateNewData(response);
+              $scope.api.update();
           });
           req.error(function(data) {
               console.log('err');
           });
       };
+  });
+
+// Controlloer for the Stremming data
+app.controller('MainCtrl', function($scope) {
+      $scope.options = {
+          chart: {
+              type: 'lineChart',
+              margin : { right: 90 },
+              x: function(d){ return d.x; },
+              y: function(d){ return d.y; },
+              xAxis: {
+                  axisLabel: 'Time'
+              },
+              yAxis: {
+                  axisLabel: 'Random Number',
+                  tickFormat: function(d){
+                      return d3.format(',.4f')(d);
+                  }
+              },
+              rightAlignYAxis: true,
+              transitionDuration: 500
+          }
+      };
+
+      $scope.data = [{
+          key: "Large Data",
+          color: "orange",
+          values: [
+              {
+                  x: 1,
+                  y: 1
+              }]
+      }];
+
+      // This is for timing
+      var ttime = 0;
+
+      // Run when called
+      var run = true;
+
+      // Call the populate function every second
+      setInterval(function () {
+          if (!run) return;
+          $scope.data[0].values = [];
+
+          // Generate a random value array and dump them in the data set
+          for (i = 0; i < 5000; i++) {
+              $scope.data[0].values.push({
+                  x: i,
+                  y: Math.random()
+              });
+
+          }
+
+          /* Determine the amount of time required to execute the chart
+           * update.
+           */
+          var now1 = new Date();
+          $scope.api.update();
+          var now2 = new Date();
+
+          ttime = now2-now1;
+          document.getElementById("timeExe").textContent=ttime;
+      }, 2000);
+
+      d3.select("#start-stop-button").on("click", function () {
+          run = !run;
+      });
   });

@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
   host: 'cis550db1.cjrslxs9vdnj.us-east-2.rds.amazonaws.com',
   user: 'cis550project1',
   password: 'cis550sharekey',
-  database: 'zipcode'
+  database: 'cis550project1'
 });
 
 connection.connect(function(err) {
@@ -77,7 +77,7 @@ router.get('/college', function(req, res) {
     }
   });
 
-  
+
 });
 
 router.get('/college', function(req, res) {
@@ -116,87 +116,11 @@ router.get('/college', function(req, res) {
     }
   });
 
-  
+
 });
 
 
-// To add a new page, use the templete below
-/*
-router.get('/routeName', function(req, res) {
-  res.sendFile(path.join(__dirname, '../', 'views', 'fileName.html'));
-});
-*/
 
-// Login uses POST request
-router.post('/login', function(req, res) {
-  // use console.log() as print() in case you want to debug, example below:
-  // console.log(req.body); will show the print result in your terminal
-
-  // req.body contains the json data sent from the loginController
-  // e.g. to get username, use req.body.username
-
-  var query = "REPLACE into User values('"+req.body.username+"','"+req.body.password+"');";
-/* Write your query here and uncomment line 21 in javascripts/app.js*/
-  	connection.query(query, function(err, rows, fields) {
-    console.log("rows", rows);
-    console.log("fields", fields);
-    if (err) console.log('insert error: ', err);
-    else {
-      res.json({
-        result: 'success'
-      });
-    }
-  });
-});
-
-router.post('/search', function(req, res) {
-  // use console.log() as print() in case you want to debug, example below:
-  // console.log(req.body); will show the print result in your terminal
-
-  // req.body contains the json data sent from the loginController
-  // e.g. to get username, use req.body.username
-  //console.log(req.body)
-  var query="select Institution_id from college_information where Institution='"+req.body.name+"';"
-  connection.query(query, function(err, rows, fields) {
-    console.log(rows);
-    if (err) console.log('error: ', err);
-    else {
-      if(rows.length==0){
-        res.json({
-          result: 'fail'
-        });
-      }else{
-        res.json({
-          "result": 'success',
-          "cid": rows[0].Institution_id
-        });
-      }
-      
-    }
-  });
-  
-});
-
-router.post('/getMovieByGenre', function(req, res) {
-  // use console.log() as print() in case you want to debug, example below:
-  // console.log(req.body); will show the print result in your terminal
-
-  // req.body contains the json data sent from the loginController
-  // e.g. to get username, use req.body.username
-  console.log(req.body.genre)
-
-  var query = "select title,rating,vote_count from Genres g, Movies m "
-  +"where g.movie_id=m.id and g.genre='"
-  +req.body.genre+"' order by rating desc, vote_count desc limit 10;";
-    connection.query(query, function(err, rows, fields) {
-    console.log("rows", rows);
-    console.log("fields", fields);
-    if (err) console.log('error: ', err);
-    else {
-      res.json(rows);
-    }
-  });
-});
 
 router.get('/top100_avg', function(req, res) {
   console.log("top100 avg");
@@ -206,7 +130,7 @@ router.get('/top100_avg', function(req, res) {
   +"NATURAL JOIN (select Institution,Rank as QS_Rank from qs_general_2019) as qs) "
   +"NATURAL JOIN (select Institution,Rank as ARWU_Rank from arwu_general_2018) as arwu) "
   +"NATURAL JOIN (select Institution,Rank as USNEWS_Rank from usnews_general_2019) as usnews "
-  +"ORDER BY Average ASC Limit 100"; 
+  +"ORDER BY Average ASC Limit 100";
     connection.query(query, function(err, rows, fields) {
     if (err) console.log('error: ', err);
     else {
@@ -237,14 +161,20 @@ router.get('/school/:selectedState', function(req, res) {
     console.log("best_of BackEnd called!");
     var selectedState = req.params.selectedState;
     console.log("selectedState = " + selectedState);
-    var query = "SELECT S.leaid, AVG(S.mn_all) AS score, D.zipcode, H.median_price, Z.city, Z.state"+
-                " FROM school_rating S, district_city D, house_price H, zip_city Z"+
-                " WHERE Z.state = ?  AND D.leaid = S.leaid AND H.zipcode = D.zipcode AND H.zipcode = Z.zipcode"+
-                " GROUP BY D.leaid;";
+    var query = " SELECT T6.leaid, ROUND(AVG(score), 3) AS score, T3.zipcode, T3.median_price, T3.city, T3.state, ROUND(score / median_price * 10000000,3)  AS ratio, T3.population "+
+                    " FROM (SELECT * FROM (SELECT S.leaid, AVG(S.mn_all) AS score FROM school_rating S WHERE mn_all > 0 GROUP BY S.leaid) T5 NATURAL JOIN  "+
+                         " (SELECT D.zipcode, D.leaid FROM district_city D) T4) T6,  "+
+                         " (SELECT * FROM (SELECT H.zipcode, H.median_price FROM house_price H) T1 NATURAL JOIN  "+
+                         " (SELECT Z.city, Z.zipcode, Z.state FROM zip_city Z WHERE Z.state = ?) T2 NATURAL JOIN population P) T3 "+
+                    " WHERE  T6.zipcode = T3.zipcode  "+
+                    " GROUP BY T3.city "+
+                    " ORDER BY ratio DESC "+
+                    " LIMIT 50;";
     var options = [selectedState];
     connection.query(query, options, function(err, rows, fields) {
         if (err) console.log(err);
         else {
+           console.log("query = " + query);
           res.json(rows);
         }
     });
@@ -284,22 +214,6 @@ router.get('/getallstates', function(req, res) {
 });
 
 
-// template for GET requests
-/*
-router.get('/routeName/:customParameter', function(req, res) {
 
-  var myData = req.params.customParameter;    // if you have a custom parameter
-  var query = '';
-
-  // console.log(query);
-
-  connection.query(query, function(err, rows, fields) {
-    if (err) console.log(err);
-    else {
-      res.json(rows);
-    }
-  });
-});
-*/
 
 module.exports = router;
