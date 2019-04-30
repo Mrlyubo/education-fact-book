@@ -37,88 +37,24 @@ router.get('/income', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'income.html'));
 });
 
+router.get('/general-stats', function(req, res) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'general-stats.html'));
+});
+
 router.get('/school', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'school.html'));
 });
 
-router.get('/college', function(req, res) {
-  var cid=req.query.cid;
-  var q1="select Institution,Location from college_information where Institution_id="+cid+";";
-  var result={};
-  //var svg = d3.select("svg");
 
-  connection.query(q1, function(err, rows, fields) {
-    if (err) console.log(err);
-    else {
-      result["cname"]=rows[0].Institution;
-      result["location"]=rows[0].Location;
-
-      var q2="(select Rank from the_general_2015 where Institution_id='"+cid
-      +"') union all " + "(select Rank from the_general_2016 where Institution_id='"+cid
-      +"') union all "  + "(select Rank from the_general_2017 where Institution_id='"+cid
-      +"') union all " + "(select Rank from the_general_2018 where Institution_id='"+cid
-      +"') union all " + "(select Rank from the_general_2019 where Institution_id='"+cid +"');";
-      connection.query(q2, function(err, rows, fields) {
-
-        if (err) console.log(err);
-        else {
-          console.log(rows);
-          result["the_2015"]=rows[0].Rank;
-          result["the_2016"]=rows[1].Rank;
-          result["the_2017"]=rows[2].Rank;
-          result["the_2018"]=rows[3].Rank;
-          result["the_2019"]=rows[4].Rank;
-
-          res.render('college',result);
-        }
-      });
-
-
-    }
-  });
-
-
+// To add a new page, use the templete below
+/*
+router.get('/routeName', function(req, res) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'fileName.html'));
 });
-
-router.get('/college', function(req, res) {
-  var cid=req.query.cid;
-  var q1="select Institution,Location from college_information where Institution_id="+cid+";";
-  var result={};
-  //var svg = d3.select("svg");
-
-  connection.query(q1, function(err, rows, fields) {
-    if (err) console.log(err);
-    else {
-      result["cname"]=rows[0].Institution;
-      result["location"]=rows[0].Location;
-
-      var q2="(select Rank from the_general_2015 where Institution_id='"+cid
-      +"') union all " + "(select Rank from the_general_2016 where Institution_id='"+cid
-      +"') union all "  + "(select Rank from the_general_2017 where Institution_id='"+cid
-      +"') union all " + "(select Rank from the_general_2018 where Institution_id='"+cid
-      +"') union all " + "(select Rank from the_general_2019 where Institution_id='"+cid +"');";
-      connection.query(q2, function(err, rows, fields) {
-
-        if (err) console.log(err);
-        else {
-          console.log(rows);
-          result["the_2015"]=rows[0].Rank;
-          result["the_2016"]=rows[1].Rank;
-          result["the_2017"]=rows[2].Rank;
-          result["the_2018"]=rows[3].Rank;
-          result["the_2019"]=rows[4].Rank;
-
-          res.render('college',result);
-        }
-      });
-
-
-    }
-  });
-
-
-});
-
+*/
+router.post('/search', function(req, res) {
+  // use console.log() as print() in case you want to debug, example below:
+  // console.log(req.body); will show the print result in your terminal
 
 
 

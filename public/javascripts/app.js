@@ -1,5 +1,88 @@
 var app = angular.module('angularjsNodejsTutorial', []);
 
+app.controller('loginController', function($scope, $http) {
+  $scope.verifyLogin = function() {
+    // To check in the console if the variables are correctly storing the input:
+    // console.log($scope.username, $scope.password);
+
+    var request = $http({
+      url: '/login',
+      method: "POST",
+      data: {
+        'username': $scope.username,
+        'password': $scope.password
+      }
+    })
+
+    request.success(function(response) {
+      // success
+      // console.log('response');
+      console.log(response);
+      if (response.result === "success") {
+        // After you've written the INSERT query in routes/index.js, uncomment the following line
+      	window.location.href = "http://localhost:8081/dashboard"
+      }
+    });
+    request.error(function(err) {
+      // failed
+      console.log("error: ", err);
+    });
+  };
+});
+
+app.controller('dashboardController', function($scope, $http) {
+  // normal variables
+  var request = $http.get('/getUser');
+
+  // Angular scope variables
+  request.success(function(data){
+    console.log("user succeed");
+    $scope.userData=data;
+  });
+
+  request.error(function(data){
+    console.log('err');
+  });
+
+  var request2 = $http.get('/getGenre');
+
+  // Angular scope variables
+  request2.success(function(data){
+    console.log("genre succeed");
+    console.log(data)
+    $scope.genre=data;
+  });
+
+  request2.error(function(data){
+    console.log('err');
+  });
+
+  $scope.getThisGenre = function(param) {
+    // To check in the console if the variables are correctly storing the input:
+    // console.log($scope.username, $scope.password);
+    console.log(param);
+
+    var request = $http({
+      url: '/getMovieByGenre',
+      method: "POST",
+      data: {
+        'genre': param
+      }
+    })
+
+    request.success(function(response) {
+      // success
+      // console.log('response');
+      console.log(response);
+      $scope.movies=response;
+    });
+    request.error(function(err) {
+      // failed
+      console.log("error: ", err);
+    });
+
+  };
+});
 
 app.controller('top100avgController', function($scope, $http) {
   // normal variables
@@ -86,7 +169,7 @@ app.controller('top100growController', function($scope, $http) {
     });
 });
 
-/**
+
 app.controller('rankplot', function($scope, $http) {
   // normal variables
     //console.log('submit here')
@@ -99,7 +182,7 @@ app.controller('rankplot', function($scope, $http) {
         'cname': cname
       }
     })**/
-/**
+
     $scope.options = {
             chart: {
                 type: 'lineChart',
@@ -156,7 +239,6 @@ app.controller('rankplot', function($scope, $http) {
         };
 
 });
-**/
 
 
 // Template for adding a controller
@@ -306,6 +388,7 @@ app.controller('stateController', function($scope, $http) {
       };
   });
 
+
 // Controlloer for the Stremming data
 app.controller('MainCtrl', function($scope) {
       $scope.options = {
@@ -373,3 +456,29 @@ app.controller('MainCtrl', function($scope) {
           run = !run;
       });
   });
+app.controller('simsController', function($scope, $http) {
+  // $scope.races = ['White', 'Black or African American', 'Asian', 'Hispanic or Latino'];
+  console.log("simsController called!");
+  var request1 = $http.get('/getallraces');
+    request1.success(function(data1) {
+        console.log(data1);
+        $scope.races = data1;
+    });
+    request1.error(function(data1) {
+        console.log('err occured in sims');
+    });
+  var request2 = $http.get('/getallgenders');
+    request2.success(function(data2) {
+        $scope.genders = data2;
+    });
+    request2.error(function(data2) {
+        console.log('err occured in sims');
+    });
+  var request3 = $http.get('/getallstates');
+    request3.success(function(data3) {
+        $scope.states = data3;
+    });
+    request3.error(function(data3) {
+        console.log('err occured in sims');
+    });
+});

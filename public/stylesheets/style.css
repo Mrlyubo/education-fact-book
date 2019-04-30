@@ -42,6 +42,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Back to top button */
+
 .back-to-top {
   position: fixed;
   display: none;
@@ -199,6 +200,7 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
+
 /* Nav Menu Essentials */
 .nav-menu, .nav-menu * {
   margin: 0;
@@ -941,9 +943,4 @@ body.mobile-nav-active #mobile-nav-toggle {
   text-align: center;
   font-size: 13px;
   color: #ccc;
-}
-
-
-.empty {
-    opacity: 0;
 }
