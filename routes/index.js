@@ -45,45 +45,6 @@ router.get('/school', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'school.html'));
 });
 
-router.get('/college', function(req, res) {
-  var cid=req.query.cid;
-  var q1="select Institution,Location from college_information where Institution_id="+cid+";";
-  var result={};
-  //var svg = d3.select("svg");
-
-  connection.query(q1, function(err, rows, fields) {
-    if (err) console.log(err);
-    else {
-      result["cname"]=rows[0].Institution;
-      result["location"]=rows[0].Location;
-
-      var q2="(select Rank from the_general_2015 where Institution_id='"+cid
-      +"') union all " + "(select Rank from the_general_2016 where Institution_id='"+cid
-      +"') union all "  + "(select Rank from the_general_2017 where Institution_id='"+cid
-      +"') union all " + "(select Rank from the_general_2018 where Institution_id='"+cid
-      +"') union all " + "(select Rank from the_general_2019 where Institution_id='"+cid +"');";
-      connection.query(q2, function(err, rows, fields) {
-
-        if (err) console.log(err);
-        else {
-          console.log(rows);
-          result["the_2015"]=rows[0].Rank;
-          result["the_2016"]=rows[1].Rank;
-          result["the_2017"]=rows[2].Rank;
-          result["the_2018"]=rows[3].Rank;
-          result["the_2019"]=rows[4].Rank;
-
-          res.render('college',result);
-        }
-      });
-
-
-    }
-  });
-
-  
-});
-
 
 // To add a new page, use the templete below
 /*
@@ -160,10 +121,9 @@ router.get('/school/:selectedState', function(req, res) {
     console.log("selectedState = " + selectedState);
     var query = "SELECT S.leaid, AVG(S.mn_all) AS score, D.zipcode, H.median_price, Z.city, Z.state"+
                 " FROM school_rating S, district_city D, house_price H, zip_city Z"+
-                " WHERE Z.state = ?  AND D.leaid = S.leaid AND H.zipcode = D.zipcode AND H.zipcode = Z.zipcode"+
+                " WHERE Z.state = 'TX'  AND D.leaid = S.leaid AND H.zipcode = D.zipcode AND H.zipcode = Z.zipcode"+
                 " GROUP BY D.leaid;";
-    var options = [selectedState];
-    connection.query(query, options, function(err, rows, fields) {
+    connection.query(query, function(err, rows, fields) {
         if (err) console.log(err);
         else {
           res.json(rows);
