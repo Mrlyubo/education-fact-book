@@ -284,3 +284,98 @@ app.controller('stateController', function($scope, $http) {
           });
       };
   });
+
+app.controller('findHighSalaryController', function($scope, $http) {
+        var request = $http.get('/stateName');
+        request.success(function(data){
+            $scope.stateName =  data;
+            //console.log(data);
+        });
+        request.error(function(data){
+            console.log('err');
+        });
+
+        $scope.Submit = function() {
+        var request = $http.get('/findSalary/'+$scope.stateName);
+        var industry = [];
+        var degree= [];
+        var income = [];
+        request.success(function(data) {
+         $scope.Topsalary = data;
+         //console.log(data);
+        // for (var i = 0; i < data.length; i++) {
+        // var row = data[i];
+        // industry.push(row.industry);
+        // degree.push(row.Degreelevel);
+        // income.push(row.AverageIncome);
+        // }
+
+        // console.log(industry);
+        // $scope.industry = industry;
+        // $scope.degree = degree;
+        // $scope.income = income;
+
+            });
+            request.error(function(data){
+                console.log('err');
+            });
+        };     
+});
+
+
+
+//Find Genres table
+app.controller('getRankController', function($scope, $http) {
+        var request = $http.get('/rankrange');
+        request.success(function(data){
+          //console.log(data);
+            $scope.rankData = data;
+        });
+        request.error(function(data){
+            console.log('err');
+        });
+
+    $scope.findRank= function(x) {
+      var request = $http.get('/findrank/'+x);
+      request.success(function(data) {
+            //console.log(data);
+            $scope.rankTable = data;
+      });
+      request.error(function(data){
+          console.log('err');
+      });
+    }
+});
+
+
+app.controller('simsController', function($scope, $http) {
+  // $scope.races = ['White', 'Black or African American', 'Asian', 'Hispanic or Latino'];
+  console.log("simsController called!");
+  var request1 = $http.get('/getallraces');
+    request1.success(function(data1) {
+        console.log(data1);
+        $scope.races = data1;
+    });
+    request1.error(function(data1) {
+        console.log('err occured in sims');
+    });
+  var request2 = $http.get('/getallgenders');
+    request2.success(function(data2) {
+        $scope.genders = data2;
+    });
+    request2.error(function(data2) {
+        console.log('err occured in sims');
+    });
+  var request3 = $http.get('/getallstates');
+    request3.success(function(data3) {
+        $scope.states = data3;
+    });
+    request3.error(function(data3) {
+        console.log('err occured in sims');
+    });
+});
+   
+
+
+
+

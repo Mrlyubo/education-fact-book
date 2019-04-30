@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="angularjsNodejsTutorial">
 <head>
   <meta charset="utf-8">
-  <title>Regna Bootstrap Template</title>
+  <title>Global College Rank</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -23,6 +23,18 @@
 
   <!-- Main Stylesheet File -->
   <link href="/stylesheets/style.css" rel="stylesheet">
+  <link href="/stylesheets/self-defined.css" rel="stylesheet">
+  <link href="/stylesheets/income.css" rel="stylesheet">
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+  <script src="javascripts/app.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.min.css"/>
+  <script>document.write('<base href="' + document.location + '" />');</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.7/angular-nvd3.min.js"></script>
+
 
   <!-- =======================================================
     Theme Name: Regna
@@ -41,34 +53,310 @@
     <div class="container">
 
       <div id="logo" class="pull-left">
-        <a href="#hero"><img src="/img/logo.png" alt="" title="" /></img></a>
+        <h1 style="color: white">Edu Fact Book</h1>
         <!-- Uncomment below if you prefer to use a text logo -->
         <!--<h1><a href="#hero">Regna</a></h1>-->
       </div>
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
-          <li><a href="#hero">Home</a></li>
-          <li><a href="/rank">College Rank</a></li>
+          <li><a href="/">Home</a></li>
+          <li class="menu-active"><a href="/rank">College Rank</a></li>
           <li><a href="/game">Start A Family</a></li>
-          <li class="menu-active"><a href="/income">Education vs Income</a></li>
+          <!-- <li><a href="/income">Education vs Income</a></li> -->
+          <div class="dropdown">
+          <li><button class="dropbtn">Education vs Income</button></li>
+            <div class="dropdown-content">
+            <a href="/general-stats">Get more General Stats of Dataset</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
+        </div>
           <li><a href="/school">Find Great School</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
   </header><!-- #header -->
 
-  <!--==========================
-    Hero Section
-  ============================-->
-<!--   <section id="hero">
-    <div class="hero-container">
-      <h1>Welcome to Education Fact Book</h1>
-      <a href="#about" class="btn-get-started">Get Started</a>
-    </div>
-  </section><!-- #hero -->
+<style>
+.dropbtn {
+  background-color: #009900;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
 
-  <!-- <main id="main"> --> -->
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 8px 12px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
+
+
+   <div ng-app = 'angularjsNodejsTutorial' class="container salarycontainer">
+      <div class="jumbotron">
+        <div class="h5">Based on users’ inputs of their residence states to discover what is the ideal industry, degree and major should people go to pursue to achieve the highest average annual salary</div>
+            <div ng-controller="findHighSalaryController">
+
+            <p>Which state are you at?</p>
+            <p>
+                <select name="stateName" ng-model="stateName">
+                    <option value="Please choose a state" >--Please choose a state--</option>
+                    <option ng-repeat="y in stateName" value={{y.stateName}}>{{y.stateName}}</option>
+                </select>
+                <button type="button" ng-click="Submit()" class="button">Submit</button>
+            </p>
+
+            <table border="3" cellpadding="10" cellspacing="2" width="500" align="center" > 
+            <tr>
+            <td>Ideal Industry</td>
+            <td>Ideal Education Degree Level</td>
+            <td>Ideal Major</td>
+            <td>Highest Potential Average Income</td>
+            <tr ng-repeat="x in Topsalary"> 
+            <td> {{x.Industry}} </td>
+            <td> {{x.Degreelevel}} </td>
+            <td> {{x.Major}} </td>
+            <td> {{x.AverageIncome}} </td>
+          </tr>
+
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Content -->
+    <div ng-app = 'angularjsNodejsTutorial' class="container rankcontainer">
+      <div class="jumbotron">
+        <div class="h5">Top QualityofLifeRank State's Average Income</div>
+        <!-- Display the Genres -->
+        <div ng-controller="getRankController">
+          <p>Display all the available working opportunity ranking as buttons from the top:</p>
+          <button type="Submit"  ng-click="findRank(x.rank)" ng-repeat="x in rankData"  class="button" >{{x.rank}}</button>
+          <p>Show top ranking states information with the opportunity ranking within the range selected by you:</p>
+          <table border="3" cellpadding="10" cellspacing="2" width="500" align="center" > 
+            <tr>
+            <td>State Name</td>
+            <td>QualityofLifeRank</td>
+            <td>Average Income</td>
+            <tr ng-repeat="x in rankTable"> 
+            <td> {{x.StateName}} </td>
+            <td> {{x.QualityofLifeRank}} </td>
+            <td> {{x.Average_Income}} </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Degreelevel', 'Amount'],
+          ['Bachelor degree', 5124],
+        ['Master degree', 2437],
+        ['Associate degree', 802],
+        ['Doctoral degree', 776],
+        ['High School degree', 581],
+        ['Lower than High School degree', 276]
+        ]);
+
+        var options = {
+          title: 'Education Degreelevel Distribution in dataset',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+  </body>
+
+
+<script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+            
+            title:{
+              text:"Average Income of 50 States"
+            },
+            axisX:{
+              interval: 0.5
+            },
+            axisY2:{
+              interlacedColor: "rgba(1,77,101,.2)",
+              gridColor: "rgba(1,77,101,.1)",
+              title: "Average Annual Income of Each State"
+            },
+            data: [{
+              type: "bar",
+              name: "states",
+              axisYType: "secondary",
+              color: "#014D65",
+              dataPoints: [
+            {y:177526.254, label:'Massachusetts'},
+            {y:145183.1587, label:'Michigan'},
+            {y:142418.0794, label:'Tennessee'},
+            {y:141069.7689, label:'New York'},
+            {y:125835.381, label:'New Mexico'},
+            {y:123700.127, label:'South Dakota'},
+            {y:119215.3333, label:'Hawaii'},
+            {y:118385.2261, label:'Washington'},
+            {y:114969.8571, label:'Pennsylvania'},
+            {y:109939.8518, label:'California'},
+            {y:107979.0794, label:'Idaho'},
+            {y:105417.0159, label:'Wisconsin'},
+            {y:105337.9246, label:'New Jersey'},
+            {y:103732.9048, label:'New Hampshire'},
+            {y:103203.0952, label:'Maine'},
+            {y:101536.9683, label:'Rhode Island'},
+            {y:96094.6984, label:'North Carolina'},
+            {y:91606.746, label:'Nevada'},
+            {y:88462.9518, label:'Arizona'},
+            {y:88116.4603, label:'Louisiana'},
+            {y:87907.2482, label:'Colorado'},
+            {y:87401.6984, label:'West Virginia'},
+            {y:86562.2643, label:'Arkansas'},
+            {y:86226.3333, label:'Texas'},
+            {y:84719.7302, label:'Utah'},
+            {y:84380.3857, label:'Georgia'},
+            {y:84174.4127, label:'Wyoming'},
+            {y:83725.4339, label:'Florida'},
+            {y:83470.5571, label:'Connecticut'},
+            {y:83302.4444, label:'Maryland'},
+            {y:82837.7411, label:'Delaware'},
+            {y:81622.619, label:'South Carolina'},
+            {y:81315.9048, label:'North Dakota'},
+            {y:80743.9365, label:'Mississippi'},
+            {y:80432.0794, label:'Indiana'},
+            {y:79769.7302, label:'Illinois'},
+            {y:79077.8571, label:'Kentucky'},
+            {y:78486.8107, label:'Alaska'},
+            {y:76696.381, label:'Oregon'},
+            {y:75583.6984, label:'Minnesota'},
+            {y:72218.4762, label:'Nebraska'},
+            {y:70157.2857, label:'Ohio'},
+            {y:70046.1839, label:'Alabama'},
+            {y:68304.9524, label:'Vermont'},
+            {y:59337.0159, label:'Kansas'},
+            {y:58007.1905, label:'Iowa'},
+            {y:55987.8571, label:'Virginia'},
+            {y:55711.6984, label:'Oklahoma'},
+            {y:54403.8095, label:'Missouri'},
+            {y:48150.5556, label:'Montana'},
+              ]
+            }]
+          });
+    chart.render();
+
+
+var chart1 = new CanvasJS.Chart("chartContainer1", {
+        exportEnabled: true,
+          animationEnabled: true,
+          title:{
+            text: "General Statistics of Race"
+          },
+          legend:{
+            cursor: "pointer",
+            itemclick: explodePie
+          },
+          data: [{
+            type: "pie",
+            showInLegend: true,
+            toolTipContent: "{name}: <strong>{y}%</strong>",
+            indexLabel: "{name} - {y}% - number - {number}",
+            dataPoints: [
+
+
+              { y: 25.67, name: 'White', number: 2567, exploded: true },
+              { y: 24.28, name: 'Hispanic or Latino' , number: 2428 },
+
+              { y: 25.17, name: 'Black or African American', number: 2517 },
+              { y: 24.86, name: 'Asian' , number: 2486}
+              ]
+          }]
+        });
+   chart1.render();
+
+  function explodePie (e) {
+  if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+    e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+  } else {
+    e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+  }
+  e.chart1.render();}
+
+  var genderchart = new CanvasJS.Chart("genderchart", {
+    exportEnabled: true,
+    animationEnabled: true,
+    title:{
+      text: "General Statistics of Gender"
+    },
+    legend:{
+      cursor: "pointer",
+      itemclick: explodePie
+    },
+    data: [{
+      type: "pie",
+      showInLegend: true,
+      toolTipContent: "{name}: <strong>{y}%</strong>",
+      indexLabel: "{name} - {y}%, {amount} ",
+      dataPoints: [
+        { y: 51.51, name: "Male", amount: 5149 , exploded: true },
+        { y: 48.49, name: "Female" , amount: 4849 }
+      ]
+    }]
+  });
+  genderchart.render();
+
+  function explodePie (e) {
+    if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+      e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+    } else {
+      e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+    }
+    e.genderchart.render();
+
+  }
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 400px; width: 100%;"></div>
+<div id="chartContainer1" style="height: 400px; width: 100%;"></div>
+<div id="genderchart" style="height: 400px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
   <!--==========================
     Footer

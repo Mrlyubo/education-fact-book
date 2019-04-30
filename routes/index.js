@@ -9,7 +9,7 @@ var connection = mysql.createConnection({
   host: 'cis550db1.cjrslxs9vdnj.us-east-2.rds.amazonaws.com',
   user: 'cis550project1',
   password: 'cis550sharekey',
-  database: 'zipcode'
+  database: 'cis550project1'
 });
 
 connection.connect(function(err) {
@@ -37,47 +37,12 @@ router.get('/income', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'income.html'));
 });
 
-router.get('/school', function(req, res) {
-  res.sendFile(path.join(__dirname, '../', 'views', 'school.html'));
+router.get('/general-stats', function(req, res) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'general-stats.html'));
 });
 
-router.get('/college', function(req, res) {
-  var cid=req.query.cid;
-  var q1="select Institution,Location from college_information where Institution_id="+cid+";";
-  var result={};
-  //var svg = d3.select("svg");
-
-  connection.query(q1, function(err, rows, fields) {
-    if (err) console.log(err);
-    else {
-      result["cname"]=rows[0].Institution;
-      result["location"]=rows[0].Location;
-
-      var q2="(select Rank from the_general_2015 where Institution_id='"+cid
-      +"') union all " + "(select Rank from the_general_2016 where Institution_id='"+cid
-      +"') union all "  + "(select Rank from the_general_2017 where Institution_id='"+cid
-      +"') union all " + "(select Rank from the_general_2018 where Institution_id='"+cid
-      +"') union all " + "(select Rank from the_general_2019 where Institution_id='"+cid +"');";
-      connection.query(q2, function(err, rows, fields) {
-
-        if (err) console.log(err);
-        else {
-          console.log(rows);
-          result["the_2015"]=rows[0].Rank;
-          result["the_2016"]=rows[1].Rank;
-          result["the_2017"]=rows[2].Rank;
-          result["the_2018"]=rows[3].Rank;
-          result["the_2019"]=rows[4].Rank;
-
-          res.render('college',result);
-        }
-      });
-
-
-    }
-  });
-
-  
+router.get('/school', function(req, res) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'school.html'));
 });
 
 router.get('/college', function(req, res) {
@@ -126,29 +91,6 @@ router.get('/routeName', function(req, res) {
   res.sendFile(path.join(__dirname, '../', 'views', 'fileName.html'));
 });
 */
-
-// Login uses POST request
-router.post('/login', function(req, res) {
-  // use console.log() as print() in case you want to debug, example below:
-  // console.log(req.body); will show the print result in your terminal
-
-  // req.body contains the json data sent from the loginController
-  // e.g. to get username, use req.body.username
-
-  var query = "REPLACE into User values('"+req.body.username+"','"+req.body.password+"');";
-/* Write your query here and uncomment line 21 in javascripts/app.js*/
-  	connection.query(query, function(err, rows, fields) {
-    console.log("rows", rows);
-    console.log("fields", fields);
-    if (err) console.log('insert error: ', err);
-    else {
-      res.json({
-        result: 'success'
-      });
-    }
-  });
-});
-
 router.post('/search', function(req, res) {
   // use console.log() as print() in case you want to debug, example below:
   // console.log(req.body); will show the print result in your terminal
@@ -175,27 +117,6 @@ router.post('/search', function(req, res) {
     }
   });
   
-});
-
-router.post('/getMovieByGenre', function(req, res) {
-  // use console.log() as print() in case you want to debug, example below:
-  // console.log(req.body); will show the print result in your terminal
-
-  // req.body contains the json data sent from the loginController
-  // e.g. to get username, use req.body.username
-  console.log(req.body.genre)
-
-  var query = "select title,rating,vote_count from Genres g, Movies m "
-  +"where g.movie_id=m.id and g.genre='"
-  +req.body.genre+"' order by rating desc, vote_count desc limit 10;";
-    connection.query(query, function(err, rows, fields) {
-    console.log("rows", rows);
-    console.log("fields", fields);
-    if (err) console.log('error: ', err);
-    else {
-      res.json(rows);
-    }
-  });
 });
 
 router.get('/top100_avg', function(req, res) {
@@ -282,6 +203,62 @@ router.get('/getallstates', function(req, res) {
       }
   });
 });
+
+
+
+router.get('/stateName', function(req,res) {
+  var query = "SELECT DISTINCT stateName FROM State";
+  console.log("query", query);
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+        //console.log(rows);
+        res.json(rows);
+    }
+  });
+});
+
+router.get('/rankrange', function(req,res) {
+  var query = "SELECT DISTINCT(OpportunityRank - OpportunityRank % 10) AS rank FROM State WHERE (OpportunityRank -  OpportunityRank % 10) != 0 ORDER BY rank";
+  console.log("query", query);
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+        //console.log(rows);
+        res.json(rows);
+    }
+  });
+});
+
+
+
+router.get('/findrank/:rank', function(req,res) {
+
+  var query = "SELECT StateName, QualityofLifeRank, avg(income) AS Average_Income FROM People P JOIN State S ON P.StateID = S.StateID JOIN Occupation O ON O.JobID = P.JobID WHERE OpportunityRank<='"  + req.params.rank + "' GROUP BY StateName,QualityofLifeRank HAVING count(distinct(industry)) = (SELECT count(distinct(industry)) FROM Occupation) ORDER BY avg(income) DESC, QualityofLifeRank ASC";
+  console.log("query", query);
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+       //console.log(rows);
+        res.json(rows);
+    }  
+    });
+});
+
+
+
+router.get('/findSalary/:stateName', function(req,res) {
+  var query = "select Industry, Degreelevel, Major, avg(income) as AverageIncome from People p join Occupation o on p.JobID = o.JobID join Education e on o.JobID = e.JobID join State s on p.StateID = s.StateID where stateName = '"  + req.params.stateName + "' group by industry, Degreelevel order by avg(income) desc";
+  console.log("query", query);
+  connection.query(query, function(err, rows, fields) {
+    if (err) console.log(err);
+    else {
+      //console.log(rows);
+      res.json(rows);
+    }  
+    });
+});
+
 
 
 // template for GET requests
