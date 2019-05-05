@@ -1,8 +1,36 @@
-#growth h2 {
-    color: #eee;
-    margin-bottom: 50px;
-    font-size: 24px;
+#college_section {
+  display: table;
+  width: 100%;
+  height: 100vh;
+  background: url(../img/penn2.jpg) top center fixed;
+  background-size: cover;
 }
+
+#school_section {
+  display: table;
+  width: 100%;
+  height: 100vh;
+  background: url(../img/penn4.jpg) top center fixed;
+  background-size: cover;
+}
+
+#game_section {
+  display: table;
+  width: 100%;
+  height: 100vh;
+  background: url(../img/penn5.jpeg) top center fixed;
+  background-size: cover;
+}
+
+
+#income_section {
+  display: table;
+  width: 100%;
+  height: 100vh;
+  background: url(../img/penn3.jpg) top center fixed;
+  background-size: cover;
+}
+
 
 .schedule_div h2 {
     color: #eee;
@@ -11,7 +39,7 @@
 }
 
 .information{
-    margin-top: 80px;
+    margin-top: 100px;
     margin-bottom: 40px;
     color: white;
 }
@@ -21,6 +49,12 @@
     margin-bottom: 10px;
 }
 
+.plot{
+    background: #dddddd;
+    width: 70%;
+    margin: auto;
+    margin-bottom: 50px; 
+}
 
 .standing{
     width:95%;
@@ -28,8 +62,49 @@
 
 .search{
     height: 34px;
+
 }
 
+.filter .search_div{
+    border: none;
+    width: 160px;
+}
+
+.filter .search_div .search_input{
+    width: 160px;
+    margin-bottom: 0; 
+}
+
+.filter .search_div .hint{
+    width: 160px;
+    border: none;
+    background: #F2F2F2;
+    color: #666666;
+}
+
+.filter .search_div .hint div{
+    border: none;
+    width: 160px;
+    margin: 0;
+}
+
+.filter .search_div .hint ul{
+    width: 160px;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.filter .search_div .hint a{
+    background: #F2F2F2;
+    color: #666666;
+    margin: 5px;
+    white-space: normal;
+    float: left;
+    width: 150px;
+    height: auto;
+    word-wrap: break-word;
+}
 
 .schedule_div{
     background: rgba(0, 0, 0, 0.6);

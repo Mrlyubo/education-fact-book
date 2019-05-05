@@ -1,0 +1,55 @@
+#map { 
+  height: 400px; 
+  width: 60%; 
+  margin-left: 0;
+  display: inline-block;
+  vertical-align: middle;
+} 
+
+.dropdown_css {
+  padding: 0 8px 10px 8px;
+  text-decoration: none;
+  display: inline-block;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 13px;
+  outline: none;
+}
+
+.button {
+  background-color:  #444444; 
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border: 2px solid #ffffff;
+  height: 35px;
+  vertical-align: middle;
+  line-height: 0.6px;
+}
+
+
+.table {
+  border: 1.5px solid black;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1.5px solid black;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+tr:nth-child(odd){background-color: #ffffff}
+
+.jumbotron {
+  background-color: #f3f4f7;
+  width: 70%;
+  margin: auto;
+}

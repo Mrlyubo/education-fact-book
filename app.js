@@ -11,6 +11,55 @@ var index = require('./routes/index');
 
 var app = express();
 
+var MongoClient = require('mongodb').MongoClient;
+
+var url = "mongodb://cis550team:cis550mongo@18.219.153.255/cismongo";
+
+const cors = require('cors');
+
+app.use(cors());
+
+
+var bodyParser = require('body-parser')
+
+
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
+
+var fs = require('fs');
+
+// app.get('/data/:var1', function(req,res){
+//   console.log(req.params.var1);
+
+app.get('/data', function(req,res){
+
+  var salary = req.query.salary;
+  var salarynum = Number(salary);
+  // console.log(req.query);
+  var bachelor = req.query.bachelor;
+  var bachelornum = Number(bachelor)/100*3371;
+  var master = req.query.master;
+  var masternum = Number(master)/100*2650;
+  var phd = req.query.phd;
+  var phdnum = Number(phd)/100*1118;
+
+  MongoClient.connect(url,{useNewUrlParser: true}, function(err,client){
+  if(!err) {
+    var db = client.db('cismongo');
+
+    db.collection('cismongo').find({"Average_Income": {$gte: salarynum}, "Education_Level.Bachelor_Degree": {$gte: bachelornum},
+      "Education_Level.Master_Degree": {$gte: masternum}, "Education_Level.Phd_Degree": {$gte: phdnum}},
+      {"_id": 0, "loc": 1, "State_Name": 1, "Average_Income":1}).toArray(function (findErr, result) {
+      if (findErr) throw findErr;
+      res.json(result);
+      client.close();
+    });
+  }
+ });
+})
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 //app.set('view engine', 'jade');

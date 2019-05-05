@@ -1,42 +1,55 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="angularjsNodejsTutorial" >
+<html lang="en" ng-app="plunker"  >
 <head>
-  <meta charset="utf-8">
-  <title>Education</title>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="" name="keywords">
-  <meta content="" name="description">
 
-  <!-- Favicons -->
-  <link href="/img/favicon.png" rel="icon">
-  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <meta charset="utf-8">
+    <title>School</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
+    <!-- Favicons -->
+    <link href="/img/favicon.jpeg" rel="icon">
+    <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Bootstrap CSS File -->
-  <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
 
-  <!-- Libraries CSS Files -->
-  <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="/lib/animate/animate.min.css" rel="stylesheet">
+    <!-- Bootstrap  File -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+    <!-- Libraries CSS Files -->
+    <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/lib/animate/animate.min.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
 
-  <script src="javascripts/app.js" type="text/javascript"></script>
 
-  <!-- Main Stylesheet File -->
-  <link href="/stylesheets/style.css" rel="stylesheet">
+    <!-- AngularJS Controlloer Files -->
+    <script src="javascripts/app.js" type="text/javascript"></script>
+    <script src="javascripts/schoolCtrl.js" type="text/javascript"></script>
 
-   <!-- d3.js scatter plot dependency-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.min.css"/>
-  <script>document.write('<base href="' + document.location + '" />');</script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.7/angular-nvd3.min.js"></script>
-  <!-- <script src="javascripts/plunker.js"></script> -->
+    <!-- Main Stylesheet File -->
+    <link href="/stylesheets/style.css" rel="stylesheet">
+    <link href="/stylesheets/school.css" rel="stylesheet">
 
+    <!-- d3.js scatter plot -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.min.css"/>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.min.js"></script>
+    <script src="https://rawgit.com/krispo/angular-nvd3/v1.0.4/dist/angular-nvd3.js"></script>
+
+    <!-- Pagination -->
+    <link href="/stylesheets/page.css" rel="stylesheet">
+    <link href="/stylesheets/self-defined.css" rel="stylesheet">
+    <script src="/javascripts/dirPagination.js"></script>
+
+    <!--  Checkbox Multiple Select-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.7.0/lodash.min.js"></script>
 
 
 </head>
@@ -50,18 +63,27 @@
     <div class="container">
 
       <div id="logo" class="pull-left">
-        <a href="#hero"><p>Education Fact Book</p></a>
+        <h1 style="color: white">Edu Fact Book</h1>
         <!-- Uncomment below if you prefer to use a text logo -->
         <!--<h1><a href="#hero">Regna</a></h1>-->
       </div>
 
-      <nav id="nav-menu-container">
+     <nav id="nav-menu-container" style="margin-top: 10px">
         <ul class="nav-menu">
           <li><a href="/">Home</a></li>
           <li><a href="/rank">College Rank</a></li>
           <li><a href="/game">Start A Family</a></li>
-          <li><a href="/income">Education vs Income</a></li>
           <li class="menu-active"><a href="/school">Find Great School</a></li>
+          <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    EDUCATION VS INCOME
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/income">By-state Information</a></li>
+                    <li><a href="/general-stats">General Stats</a></li>
+                    <li><a href="/mongo-infor">Data on Google Map</a></li>
+                </ul>
+            </li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
@@ -70,234 +92,150 @@
   <!--==========================
     Hero Section
   ============================-->
-  <section id="hero">
+<section id="school_section">
+    <div class = "schedule_div" ng-controller = "stateController">
+              <!-- SECTION ONE -->
+              <div class="jumbotron" style="width: 59%;margin:auto;margin-top: 150px">
 
+                  <div class="container">
 
-      <div class="container user-container" ng-controller="stateController">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <hr class="empty">
-              <div class="jumbotron">
-              <div class="h3 headline">Great School With Affordable House</div>
-              <div class="form-group">
-                <label for="">State</label>
-                <select class = "custom-select" ng-model="selectedState" ng-options="x for x in states"></select>
-                <button type = "button" class="btn btn-outline-secondary" name = "Submit" ng-click = "selectState()">Submit</button>
+                       <center><h3> Great School With Affordable House <h3></center>
+                           <br>
+                           <div style="float:left">Selected States:</div>
+                           <br>
+                           <div> &nbsp &nbsp &nbsp &nbsp</div>
+                           <ul class="thumbnail" ng-repeat="x in example14model">
+                               <li>{{x.id}}</li>
+                           </ul>
+                           <div class="input-group mb-3">
+
+                               <button type = "button" class="btn btn-success"
+                                name = "Submit" ng-click = "selectState()">Submit State</button>
+                                <div> &nbsp &nbsp &nbsp &nbsp</div>
+                               <div ng-dropdown-multiselect="" options="example14data" selected-model="example14model"
+                               checkboxes="true" extra-settings="example14settings"> Selecte States </div>
+
+                            <div> &nbsp &nbsp &nbsp &nbsp</div>
+
+                            </div>
+                       <div><nvd3 options="options" data="data" api="api" class="with-3d-shadow with-transitions"></nvd3> </div>
+                       <small class = "tips">Bigger dot, more population</small>
+                   </div>
               </div>
-              <div class="input-group mb-3">
+              <div class="jumbotron container" style="width: 95%;margin:auto;margin-top: 20px">
+                  <center><div class="h3 headline"><h3>Great School With Affordable House</h3></div></center>
+                      <br>
 
-                  <hr>
+                     <!-- SELECT STATE -->
+                     <div  class = "container">
+                             <br>
+                            <div style="float:left">Selected States:</div>
+                            <br>
+                            <ul class="thumbnail" ng-repeat="x in example14model">
+                                <li>{{x.id}}</li>
+                            </ul>
+
+                         <br>
+                         <div class="input-group mb-3">
+
+                                     <button type = "button" class="btn btn-success"
+                                      name = "Submit" ng-click = "selectState()">Submit State</button>
+                                        <div> &nbsp &nbsp &nbsp &nbsp</div>
+                                     <div ng-dropdown-multiselect="" options="example14data" selected-model="example14model"
+                                     checkboxes="true" extra-settings="example14settings"> Selecte States</div>
+
+                                     <div >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</div>
+                                     <!-- FILTER -->
+
+                                      <input type="text" class="form-control" placeholder="Type City Or State"
+                                      ng-model="searchText" aria-label="Search city & zipcode">
+
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text"> Search </span>
+                                      </div>
+
+
+                          </div>
+                     </div>
+
                   <table class = "table">
+                      <small> Click the table head to sort</small>
                       <tr>
-                          <th>score</th>
-                          <th>zipcode</th>
-                          <th>median_price</th>
-                          <th>city</th>
-                          <th>state</th>
+                          <th ng-click="sortData('zipcode')">Zipcode <div ng-class="getSortClass('zipcode')"></div> </th>
+                          <th ng-click="sortData('city')">City <div ng-class="getSortClass('city')"></div>  </th>
+                          <th ng-click="sortData('state')">State <div ng-class="getSortClass('state')"></div> </th>
+                          <th ng-click="sortData('population')">Population <div ng-class="getSortClass('population')"></div> </th>
+                          <th ng-click="sortData('score')">School Rating Score <div ng-class="getSortClass('score')"> </div></th>
+                          <th ng-click="sortData('median_price')">House Price <div ng-class="getSortClass('median_price')"></div> </th>
+                          <th ng-click="sortData('ratio')">Score/House Price <div ng-class="getSortClass('ratio')"></div> </th>
+
                       </tr>
-                      <tr ng-repeat="x in affordable">
-                          <td>{{x.score}}</td>
+                      <tr dir-paginate="x in affordable | orderBy:sortColumn:reverseSort  | filter: search | itemsPerPage: pageSize"
+                          current-page="currentPage">
                           <td>{{x.zipcode}}</td>
-                          <td>{{x.median_price}}</td>
                           <td>{{x.city}}</td>
                           <td>{{x.state}}</td>
+                          <td>{{x.population | number}}</td>
+                          <td>{{x.score}} Above Avg.</td>
+                          <td>{{x.median_price | currency}}</td>
+                          <td>{{x.ratio}}</td>
                       </tr>
-                  </table>
+
+                   </table>
+
+                   <div ng-controller="OtherController" class="other-controller">
+                     <center>
+                     <div class="text-center">
+                     <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"
+                         template-url="dirPagination.tpl.html"></dir-pagination-controls>
+                     </div>
+                     </div>
+                   </center>
 
               </div>
-          </div>
-
-       </div>
-
-
-       <!-- Updatable Diagram -->
-       <div class="container jumbotron " ng-controller = 'stateController'>
-            <button class = "btn btn-large" ng-click="refresh()">Refresh</button>
-            <div> <nvd3 options="options" data="data"></nvd3> </div>
-       </div>
+    </div>
 
 
 
-       <!-- economy -->
-       <!-- <div class="jumbotron container">
-          <button id="update">Refresh Page</button>
-          <br>
-          <div id="economyChart">
-              <svg></svg>
-          </div>
-      </div> -->
 
-       <!-- 5group -->
-
-           <!-- <div class="container jumbotron" ng-controller = 'stateController' id = 'yourControllerElementID'>
-              <button ng-click="refresh()">Refresh</button>
-              <nvd3 options="options" data="data"></nvd3>
-           </div> -->
-
-
-
-  </section><!-- #hero -->
-
-  <main id="main">
+</section><!-- #hero -->
 
   <!--==========================
     Footer
   ============================-->
   <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-      </div>
-    </div>
-
     <div class="container">
       <div class="copyright">
-        <strong>Education Fact Book</strong>
+        &copy; Author: <strong>Zezhong Yu,Bo Lyu,Shuai Zheng,Rui Li</strong>
       </div>
       <div class="credits">
-         <a href="http://www.cssmoban.com/" target="_blank" title=""></a>CIS 550<a href="http://www.cssmoban.com/" title="Bo" target="_blank"> Bo Lyu</a>
+        Final Project for CIS 550 2019 Spring 
       </div>
     </div>
-  </footer><!-- #footer -->
+  </footer>
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
 
-<!-- Economy -->
-   <!-- <script type='text/javascript'>
-
-      // Maintian an instance of the chart and
-      var chart;
-
-      // Maintain an Instance of the SVG selection with its data
-      var chartData;
-
-      nv.addGraph(function () {
-          chart = nv.models.lineChart().margin({
-              top: 5,
-              right: 10,
-              bottom: 38,
-              left: 10
-          }).color(["lightgrey", "rgba(242,94,34,0.58)"])
-              .useInteractiveGuideline(false)
-              //.transitionDuration(350)
-              .showLegend(true).showYAxis(false)
-              .showXAxis(true).forceY([0.4, 1.6]);
-
-          chart.xAxis.tickFormat(d3.format('d')).axisLabel("Rounds");
-          chart.yAxis.tickFormat(d3.format('0.1f'));
-
-          var data = economyData();
-
-          // Assign the SVG selction
-          chartData = d3.select('#economyChart svg').datum(data);
-          chartData.transition().duration(500).call(chart);
-
-          nv.utils.windowResize(chart.update);
-
-          return chart;
-      });
-
-      function update() {
-
-          //var data = economyData();
-          //console.log('data length3 = ' + data.length);
-          setTimeout(function(){
-              newdata = angular.element(document.getElementById('yourControllerElementID')).scope().data;
-              console.log('new data length4 (should equal to 2.2)= ' + newdata.length);
-              // Update the SVG with the new data and call chart
-              chartData.datum(newdata).transition().duration(500).call(chart);
-              nv.utils.windowResize(chart.update);
-          }, 1000);
-
-
-      };
-
-      // Update the CHART
-      d3.select("#update").on("click", update);
-
-
-
-      // Data Calc
-      function economyData() {
-
-          //console.log("updated data = "+$scope.affordable[0].state);
-          // Your economyData code
-          // ....
-          var numRounds = 10;
-
-          // Stability of economy
-          var stable = 0.2,
-              unstable = 0.6;
-          var stability = unstable;
-
-          // Type of economy
-          var boom = 0.02,
-              flat = 0,
-              poor = -0.02,
-              economyTrend = boom;
-
-          // Range
-          var start = 1,
-              max = start + stability,
-              min = start - stability;
-
-          // Arrays
-          var baseLine = [],
-              economy = [];
-
-          // Loop
-          for (var i = 0; i < numRounds + 1; i++) {
-
-              baseLine.push({
-                  x: i,
-                  y: 1
-              });
-
-              if (i == 0) {
-                  economyValue = 1;
-              } else {
-                  var curve = Math.min(Math.max(start + ((Math.random() - 0.5) * stability), min), max);
-                  economyValue = Math.round(((1 + (economyTrend * i)) * curve) * 100) / 100;
-              }
-
-              economy.push({
-                  x: i,
-                  y: economyValue
-              });
-          }
-
-          return [{
-              key: 'Base Line',
-              values: baseLine
-          }, {
-              key: 'Economy',
-              values: economy
-          }];
-      }
-   </script> -->
 
   <!-- JavaScript Libraries -->
-  <script src="/lib/jquery/jquery.min.js"></script>
-  <script src="/lib/jquery/jquery-migrate.min.js"></script>
-  <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/lib/easing/easing.min.js"></script>
-  <script src="/lib/wow/wow.min.js"></script>
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <!-- <script src="/lib/jquery/jquery-migrate.min.js"></script> -->
+    <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/lib/easing/easing.min.js"></script>
+    <script src="/lib/wow/wow.min.js"></script>
 
-  <script src="/lib/waypoints/waypoints.min.js"></script>
-  <script src="/lib/counterup/counterup.min.js"></script>
-  <script src="/lib/superfish/hoverIntent.js"></script>
-  <script src="/lib/superfish/superfish.min.js"></script>
+    <script src="/lib/waypoints/waypoints.min.js"></script>
+    <script src="/lib/counterup/counterup.min.js"></script>
+    <script src="/lib/superfish/hoverIntent.js"></script>
+    <script src="/lib/superfish/superfish.min.js"></script>
 
-  <!-- Template Main Javascript File -->
-  <script src="/js/main.js"></script>
+    <!-- Template Main Javascript File -->
+    <script src="/js/main.js"></script>
 
 </body>
 </html>
