@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+
+    <meta charset="utf-8">
+    <title>Edu Fact Book</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="google-signin-client_id" content="53980190917-iu4s4d5033a72d04cqqfk3ro0ofc1nd2.apps.googleusercontent.com">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicons -->
+    <link href="/img/favicon.jpeg" rel="icon">
+    <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
+
+    <!-- Bootstrap  File -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Libraries CSS Files -->
+    <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/lib/animate/animate.min.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+
+
+    <!--  Controlloer -->
+    <script src="javascripts/app.js" type="text/javascript"></script>
+    <script src="javascripts/schoolCtrl.js" type="text/javascript"></script>
+
+    <!-- Main Stylesheet File -->
+    <link href="/stylesheets/style.css" rel="stylesheet">
+    <link href="/stylesheets/school.css" rel="stylesheet">
+
+    <!-- d3.js scatter plot -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.min.css"/>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.min.js"></script>
+    <script src="https://rawgit.com/krispo/angular-nvd3/v1.0.4/dist/angular-nvd3.js"></script>
+
+    <!-- Pagination -->
+    <link href="/stylesheets/page.css" rel="stylesheet">
+    <script src="/javascripts/dirPagination.js"></script>
+
+    <!--  Checkbox Multiple Select-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.7.0/lodash.min.js"></script>
+
+    <!--  Google Login -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-local-storage/0.7.1/angular-local-storage.js" async defer></script> -->
+    <script type = "text/javascript" src = "/javascripts/login.js"> </script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+</head>
+
+
+<body>
+
+  <!--==========================
+  Header
+  ============================-->
+  <header id="header">
+      <div id="logo" class="pull-left" style="margin-left: 180px;">
+        <h1 style="color: white">Edu Fact Book</h1>
+        <!-- Uncomment below if you prefer to use a text logo -->
+        <!--<h1><a href="#hero">Regna</a></h1>-->
+      </div>
+
+     <nav id="nav-menu-container" style="margin-top: 10px;float: left;padding-left: 70px">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="/">Home</a></li>
+          <li><a href="/rank">College Rank</a></li>
+          <li><a href="/game">Start A Family</a></li>
+          <li><a href="/school">Find Great School</a></li>
+          <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    EDUCATION VS INCOME
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/income">By-state Information</a></li>
+                    <li><a href="/general-stats">General Stats</a></li>
+                    <li><a href="/mongo-infor">Data on Google Map</a></li>
+                </ul>
+            </li>
+            <li ><a class="signout" style = "color: white" href="#" onclick="signOut();"></a></li>
+          <li class="loginNav" style="color:white"></li>
+          <li ><img style="border-radius: 50%; width: 33px;"class = "profilePic" src="" alt=""></li>
+
+        </ul>
+      </nav><!-- #nav-menu-container -->
+  </header><!-- #header -->
+
+  <!--==========================
+    Hero Section
+  ============================-->
+<script>
+      function onSuccess(googleUser) {
+        var profile =  googleUser.getBasicProfile();
+        var fullName = profile.getName();
+        console.log('Logged in as: ' + fullName);
+        var firstName = fullName.split(' ')[0];
+        $('.loginNav').text(firstName);
+        $('.signout').text("sign out");
+        $('.profilePic').attr("src", profile.getImageUrl());
+        //$('.profilePic').css("opacity", "0");
+      }
+      function onFailure(error) {
+        console.log(error);
+      }
+      function renderButton() {
+        gapi.signin2.render('my-signin2', {
+          'scope': 'profile email',
+          'width': 240,
+          'height': 50,
+          'longtitle': true,
+          'theme': 'dark',
+          'onsuccess': onSuccess,
+          'onfailure': onFailure
+        });
+      }
+      function signOut() {
+          var auth2 = gapi.auth2.getAuthInstance();
+          auth2.signOut().then(function () {
+            console.log('User signed out.');
+          });
+          $('.loginNav').text("");
+          $('.signout').text("");
+          $('#my-signin2').css("opacity", "1");
+          $('.profilePic').attr("src", '');
+        }
+    </script>
+    <!-- Login Script End -->
+    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+  <section id="hero">
+    <div class="hero-container">
+      <h1>Welcome to Education Fact Book</h1>
+      <div id="my-signin2" align="center"></div>
+    </div>
+  </section><!-- #hero -->
+
+  <main id="main">
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Author: <strong>Zezhong Yu,Bo Lyu,Shuai Zheng,Rui Li</strong>
+      </div>
+      <div class="credits">
+        Final Project for CIS 550 2019 Spring 
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Libraries -->
+  <script src="/lib/jquery/jquery.min.js"></script>
+  <script src="/lib/jquery/jquery-migrate.min.js"></script>
+  <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/lib/easing/easing.min.js"></script>
+  <script src="/lib/wow/wow.min.js"></script>
+
+  <script src="/lib/waypoints/waypoints.min.js"></script>
+  <script src="/lib/counterup/counterup.min.js"></script>
+  <script src="/lib/superfish/hoverIntent.js"></script>
+  <script src="/lib/superfish/superfish.min.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="/js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,279 @@
+#college_section {
+  display: table;
+  width: 100%;
+  height: 100vh;
+  background: url(../img/penn2.jpg) top center fixed;
+  background-size: cover;
+}
+
+#school_section {
+  display: table;
+  width: 100%;
+  height: 100vh;
+  background: url(../img/penn4.jpg) top center fixed;
+  background-size: cover;
+}
+
+#game_section {
+  display: table;
+  width: 100%;
+  height: 100vh;
+  background: url(../img/penn5.jpeg) top center fixed;
+  background-size: cover;
+}
+
+
+#income_section {
+  display: table;
+  width: 100%;
+  height: 100vh;
+  background: url(../img/penn3.jpg) top center fixed;
+  background-size: cover;
+}
+
+
+.schedule_div h2 {
+    color: #eee;
+    margin-bottom: 50px;
+    font-size: 24px;
+}
+
+.information{
+    margin-top: 100px;
+    margin-bottom: 40px;
+    color: white;
+}
+
+.schedule_div .information h2{
+    color:#eee;
+    margin-bottom: 10px;
+}
+
+.plot{
+    background: #dddddd;
+    width: 70%;
+    margin: auto;
+    margin-bottom: 50px; 
+}
+
+.standing{
+    width:95%;
+}
+
+.search{
+    height: 34px;
+
+}
+
+.filter .search_div{
+    border: none;
+    width: 160px;
+}
+
+.filter .search_div .search_input{
+    width: 160px;
+    margin-bottom: 0; 
+}
+
+.filter .search_div .hint{
+    width: 160px;
+    border: none;
+    background: #F2F2F2;
+    color: #666666;
+}
+
+.filter .search_div .hint div{
+    border: none;
+    width: 160px;
+    margin: 0;
+}
+
+.filter .search_div .hint ul{
+    width: 160px;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.filter .search_div .hint a{
+    background: #F2F2F2;
+    color: #666666;
+    margin: 5px;
+    white-space: normal;
+    float: left;
+    width: 150px;
+    height: auto;
+    word-wrap: break-word;
+}
+
+.schedule_div{
+    background: rgba(0, 0, 0, 0.6);
+    margin: 0;
+    padding: 0 100px;
+    padding-top: 50px; 
+    padding-bottom: 10px;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+}
+.table_div{
+    overflow-y: scroll;
+    height: 800px;
+    width: 70%;
+    margin: auto;
+}
+.schedule{
+    
+    border: 1px solid black;
+    margin-top: 10px;
+    margin-bottom: 20%;
+    width: 100%;      
+}
+
+.schedule th{
+    background-color: #222;
+    color: #ffffff;
+}
+.schedule .game_time{
+    width: 20%;
+}
+
+.schedule .release_time{
+    width: 20%;
+}
+
+.schedule .home{
+    width: 15%;
+}
+
+.schedule .visitor{
+    width: 15%;
+}
+
+.schedule .prediction{
+    width: 10%;
+}
+
+.schedule .result{
+    width: 10%;
+}
+
+.schedule .right{
+    width: 10%;
+}
+
+.schedule .alt{
+    background-color: #F2F2F2;
+}
+
+.schedule .alt0{
+    background-color: white;
+}
+
+
+.filter{
+    margin-top: 80px;
+    margin-bottom: 40px;
+    overflow: hidden;
+    text-align: center;
+    color: white;
+    display: block;
+}
+
+.filter div {
+    display: inline-block;
+    margin: 0 10px 6px 0;
+    font-size: 12px;
+    text-align: center;
+    border: 1px solid #c9cbcd;
+    border-radius: 5px;
+    white-space: nowrap;
+    float: left;
+}
+
+.filter div.current a[href]{
+    color: #efeeed;
+}
+
+.filter div.current a {
+    background-color: #00c7fc;
+    color: #efeeed;
+}
+
+.filter a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #666666;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+}
+
+
+.fb_schedule_div{
+    margin-top: 20px;
+    overflow-y: scroll;
+    height: 800px;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.fb_schedule{
+    border: 1px solid black;
+    margin-top: 10px;
+    margin-bottom: 20%;
+    width: 100%;
+}
+
+.fb_schedule th{
+    background-color: #222;
+    color: #ffffff;
+}
+.fb_schedule .game_time{
+    width: 12%;
+}
+
+.fb_schedule .release_time{
+    width: 15%;
+}
+
+.fb_schedule .competition{
+    width: 16%;
+}
+
+.fb_schedule .home{
+    width: 15%;
+}
+
+.fb_schedule .visitor{
+    width: 15%;
+}
+
+.fb_schedule .prediction{
+    width: 10%;
+}
+
+.fb_schedule .result{
+    width: 10%;
+}
+
+.fb_schedule .right{
+    width: 7%;
+}
+
+.fb_schedule .alt{
+    background-color: #F2F2F2;
+}
+
+.full-comp{
+    display: none;
+}
+
+.abbr-comp{
+    display:block;
+}
+
+

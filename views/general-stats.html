@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="angularjsNodejsTutorial">
+<head>
+  <meta charset="utf-8">
+  <title>More General Stats</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="/img/favicon.jpeg" rel="icon">
+  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/lib/animate/animate.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="/stylesheets/style.css" rel="stylesheet">
+  <link href="/stylesheets/self-defined.css" rel="stylesheet">
+  <link href="/stylesheets/income.css" rel="stylesheet">
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+  <script src="javascripts/app.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.min.css"/>
+  <script>document.write('<base href="' + document.location + '" />');</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.7/angular-nvd3.min.js"></script>
+
+
+  <!-- =======================================================
+    Theme Name: Regna
+    Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+
+  <!--==========================
+  Header
+  ============================-->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <h1 style="color: white">Edu Fact Book</h1>
+        <!-- Uncomment below if you prefer to use a text logo -->
+        <!--<h1><a href="#hero">Regna</a></h1>-->
+      </div>
+
+     <nav id="nav-menu-container" style="margin-top: 10px">
+        <ul class="nav-menu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/rank">College Rank</a></li>
+          <li><a href="/game">Start A Family</a></li>
+          <li><a href="/school">Find Great School</a></li>
+          <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    EDUCATION VS INCOME
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/income">By-state Information</a></li>
+                    <li><a href="/general-stats">General Stats</a></li>
+                    <li><a href="/mongo-infor">Data on Google Map</a></li>
+                </ul>
+            </li>
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+<!-- User Content -->
+<section id="income_section">
+  <div class="schedule_div" align="center" style="height: 700px">
+      <div class="table_div"  style="margin-top: 150px">
+        <h2 style="color:white;font-family: "Poppins", sans-serif;">Some Important Pearson Correlation</h2>
+        <!-- Display the Genres -->
+        <div ng-controller="getCorrController">
+          <table border="3" cellpadding="10" cellspacing="2" width="500" align="center" > 
+
+            <tr>  <th>Correlation of Education and Income </th> <td> {{h1.EduIncCorr}} </td> </tr>
+             <tr> <th>Correlation of Health vs Education </th> <td> {{h1.HeaEduCorr}} </td> </tr>
+             <tr><th>Correlation of Health vs Income </th><td> {{h2.HeaIncCorr}} </td> </tr>
+             <tr> <th>Correlation of Education vs Opportunity</th> <td> {{h2.EduOppCorr}} </td> </tr>
+            <tr> <th> Correlation of Opportunity vs Income</th><td> {{h3.OppIncCorr}} </td> </tr>
+            <tr>  <th> Correlation of Education vs Qualitylife</th> <td> {{h3.EduQuaCorr}} </td> </tr>
+            <tr> <th> Correlation of Qualitylife vs Income</th> <td> {{h4.QuaIncCorr}} </td> </tr>           
+             <tr> <th> Correlation of Health vs Opportunity </th> <td> {{h4.HeaOppCorr}} </td> </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="schedule_div" align="center" ng-controller="top100growController">
+      <div class="table_div">
+       <h2 style="color:white;">Interesting Fact for Various Industries</h2>
+        <!-- Display the Genres -->
+        <div ng-controller="statsController">
+          <button type="Submit"  ng-click="findStats(x.Industry)" ng-repeat="x in statsData"  class="button" >{{x.Industry}}</button>
+          <table border="3" cellpadding="10" cellspacing="2" width="500" align="center" > 
+            <tr>
+            <th>Gender</th>
+            <th>Race</th>
+            <th>Position Title</th>
+            <th>Number of People</th>
+            <th>Average Income</th>
+            <tr ng-repeat="x in statsTable"> 
+            <td> {{x.Gender}} </td>
+            <td> {{x.Race}} </td>
+            <td> {{x.Title}} </td>
+            <td> {{x.AMOUNT}} </td> 
+            <td> {{x.Average_Income}} </td>
+            </tr></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    </section>
+
+
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Author: <strong>Zezhong Yu,Bo Lyu,Shuai Zheng,Rui Li</strong>
+      </div>
+      <div class="credits">
+        Final Project for CIS 550 2019 Spring 
+      </div>
+    </div>
+  </footer>
+  <!-- JavaScript Libraries -->
+  <script src="/lib/jquery/jquery.min.js"></script>
+  <script src="/lib/jquery/jquery-migrate.min.js"></script>
+  <script src="/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/lib/easing/easing.min.js"></script>
+  <script src="/lib/wow/wow.min.js"></script>
+
+  <script src="/lib/waypoints/waypoints.min.js"></script>
+  <script src="/lib/counterup/counterup.min.js"></script>
+  <script src="/lib/superfish/hoverIntent.js"></script>
+  <script src="/lib/superfish/superfish.min.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="/js/main.js"></script>
+
+</body>
+</html>
